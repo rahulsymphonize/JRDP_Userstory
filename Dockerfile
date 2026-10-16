@@ -8,4 +8,6 @@ COPY backend backend
 RUN useradd --uid 10001 app
 USER app
 EXPOSE 8000
-CMD ["sh", "-c", "uvicorn backend.main:app --host 0.0.0.0 --port 8000 --workers ${WEB_CONCURRENCY:-2} --proxy-headers --forwarded-allow-ips='*' --no-access-log"]
+CMD ["sh", "-c", "uvicorn backend.main:app --host 0.0.0.0 --port 8000 \
+     --workers ${WEB_CONCURRENCY:-2} --proxy-headers \
+     --forwarded-allow-ips='*' --no-access-log"]

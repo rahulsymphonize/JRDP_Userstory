@@ -1,4 +1,5 @@
 """JSON logs with a per-request correlation id and secret redaction."""
+
 import contextvars
 import json
 import logging
@@ -9,7 +10,10 @@ from backend import config
 correlation_id = contextvars.ContextVar("correlation_id", default=None)
 
 # Belt and braces: the code never logs keys or tokens, this catches accidents.
-SECRET = re.compile(r"(sk-ant-[\w-]{6,}|sk-[\w-]{6,}|AIza[\w-]{20,}|AQ\.[\w.-]{20,}|Bearer\s+[\w.~+/=-]+|eyJ[\w-]+\.[\w-]+\.[\w-]*)")
+SECRET = re.compile(
+    r"(sk-ant-[\w-]{6,}|sk-[\w-]{6,}|AIza[\w-]{20,}|AQ\.[\w.-]{20,}|Bearer\s+["
+    r"\w.~+/=-]+|eyJ[\w-]+\.[\w-]+\.[\w-]*)"
+)
 
 
 def redact(s):
@@ -40,5 +44,9 @@ def setup():
     for name in ("uvicorn", "uvicorn.error"):
         logging.getLogger(name).handlers[:] = []
         logging.getLogger(name).propagate = True
-    logging.getLogger("uvicorn.access").disabled = True  # replaced by our access log middleware
-    logging.getLogger("httpx").setLevel(logging.WARNING)  # httpx INFO lines carry full URLs
+    logging.getLogger("uvicorn.access").disabled = (
+        True  # replaced by our access log middleware
+    )
+    logging.getLogger("httpx").setLevel(
+        logging.WARNING
+    )  # httpx INFO lines carry full URLs

@@ -1,10 +1,14 @@
 """Deploy-time commands. Run once per deploy, never from the app at runtime.
 
-    python -m backend.manage migrate            # schema + provider reference data + base prompt
-    python -m backend.manage publish-base FILE  # publish a new base prompt version
+    python -m backend.manage migrate            # schema + provider
+    reference data + base prompt
+    python -m backend.manage publish-base FILE  # publish a new base prompt
+    version
     python -m backend.manage gen-kek            # print a new key-encryption key
-    python -m backend.manage rewrap             # re-wrap every data key with the current KEK (rotation)
+    python -m backend.manage rewrap             # re-wrap every data key
+    with the current KEK (rotation)
 """
+
 import json
 import sys
 from pathlib import Path
@@ -28,7 +32,12 @@ def migrate():
     command.upgrade(cfg, "head")
     with db.engine.begin() as conn:
         for pid, p in providers.PROVIDERS.items():
-            db.upsert(conn, db.providers, {"id": pid, "name": p["name"], "base_url": p["base_url"]}, ["id"])
+            db.upsert(
+                conn,
+                db.providers,
+                {"id": pid, "name": p["name"], "base_url": p["base_url"]},
+                ["id"],
+            )
     publish_base(DEFAULT_BASE)
 
 
@@ -37,10 +46,16 @@ def publish_base(path):
 
     data = json.loads(Path(path).read_text())
     sections, protected = data["sections"], data["protected_sections"]
-    if not all(isinstance(v, str) and v.strip() for v in sections.values()) or not set(protected) <= set(sections):
-        sys.exit("Invalid base prompt: every section needs text and protected_sections must name sections.")
+    if not all(
+        isinstance(v, str) and v.strip() for v in sections.values()
+    ) or not set(protected) <= set(sections):
+        sys.exit(
+            "Invalid base prompt: every section needs text and "
+            "protected_sections must name sections."
+        )
     with db.engine.begin() as conn:
-        print(f"Current base prompt version: {prompts.publish_base(conn, sections, protected)}")
+        version = prompts.publish_base(conn, sections, protected)
+        print(f"Current base prompt version: {version}")
 
 
 def rewrap():
@@ -49,10 +64,20 @@ def rewrap():
     c = db.credentials.c
     kid = crypto.current_kek_id()
     with db.engine.begin() as conn:
-        rows = conn.execute(select(c.id, c.wrapped_dek, c.kek_id).where(c.kek_id != kid).with_for_update()).all()
+        rows = conn.execute(
+            select(c.id, c.wrapped_dek, c.kek_id)
+            .where(c.kek_id != kid)
+            .with_for_update()
+        ).all()
         for r in rows:
-            new_kid, wrapped = crypto.wrap_dek(crypto.unwrap_dek(r.kek_id, r.wrapped_dek))
-            conn.execute(update(db.credentials).where(c.id == r.id).values(wrapped_dek=wrapped, kek_id=new_kid))
+            new_kid, wrapped = crypto.wrap_dek(
+                crypto.unwrap_dek(r.kek_id, r.wrapped_dek)
+            )
+            conn.execute(
+                update(db.credentials)
+                .where(c.id == r.id)
+                .values(wrapped_dek=wrapped, kek_id=new_kid)
+            )
     print(f"Re-wrapped {len(rows)} keys with KEK {kid}.")
 
 
@@ -60,8 +85,10 @@ def main(argv):
     cmd = argv[1] if len(argv) > 1 else ""
     if cmd == "gen-kek":
         from backend import crypto
+
         return print(crypto.new_kek())
     from backend import config
+
     config.validate()
     if cmd == "migrate":
         migrate()

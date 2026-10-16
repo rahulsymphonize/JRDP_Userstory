@@ -3,6 +3,8 @@ from alembic import context
 from backend import db
 
 with db.engine.connect() as connection:
-    context.configure(connection=connection, target_metadata=db.metadata, render_as_batch=True)
+    context.configure(
+        connection=connection, target_metadata=db.metadata, render_as_batch=True
+    )
     with context.begin_transaction():
         context.run_migrations()

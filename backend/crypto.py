@@ -1,12 +1,17 @@
 """Envelope encryption for user API keys.
 
-Each secret gets its own random data key (DEK). The DEK encrypts the secret with AES-256-GCM, bound to
-(user_id, provider_id) as associated data so a ciphertext copied to another row will not decrypt.
+Each secret gets its own random data key (DEK). The DEK encrypts the secret with
+AES-256-GCM, bound to
+(user_id, provider_id) as associated data so a ciphertext copied to another row
+will not decrypt.
 The DEK itself is wrapped by a key-encryption key (KEK).
 
-KMS seam: wrap_dek / unwrap_dek are the only functions that touch the KEK. To move to a managed KMS,
-replace their bodies with the KMS Encrypt/Decrypt (or GenerateDataKey) calls; nothing else changes.
+KMS seam: wrap_dek / unwrap_dek are the only functions that touch the KEK. To
+move to a managed KMS,
+replace their bodies with the KMS Encrypt/Decrypt (or GenerateDataKey) calls;
+nothing else changes.
 """
+
 import base64
 import os
 
@@ -56,11 +61,17 @@ def encrypt(secret, user_id, provider_id):
     """Returns (ciphertext, wrapped_dek, kek_id)."""
     dek = AESGCM.generate_key(bit_length=256)
     kek_id, wrapped = wrap_dek(dek)
-    return _seal(dek, secret.encode(), _aad(user_id, provider_id)), wrapped, kek_id
+    return (
+        _seal(dek, secret.encode(), _aad(user_id, provider_id)),
+        wrapped,
+        kek_id,
+    )
 
 
 def decrypt(ciphertext, wrapped_dek, kek_id, user_id, provider_id):
-    return _open(unwrap_dek(kek_id, wrapped_dek), ciphertext, _aad(user_id, provider_id)).decode()
+    return _open(
+        unwrap_dek(kek_id, wrapped_dek), ciphertext, _aad(user_id, provider_id)
+    ).decode()
 
 
 def new_kek():

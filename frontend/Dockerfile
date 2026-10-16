@@ -6,4 +6,6 @@ COPY app.py .
 RUN useradd --uid 10001 app
 USER app
 EXPOSE 8501
-CMD ["streamlit", "run", "app.py", "--server.port", "8501", "--server.address", "0.0.0.0", "--browser.gatherUsageStats", "false"]
+CMD ["streamlit", "run", "app.py", \
+     "--server.port", "8501", "--server.address", "0.0.0.0", \
+     "--browser.gatherUsageStats", "false"]
