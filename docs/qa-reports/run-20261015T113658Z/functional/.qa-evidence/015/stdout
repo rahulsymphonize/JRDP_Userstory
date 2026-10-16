@@ -1,0 +1,3 @@
+patch_version 2 code None
+{"benefits": ["Improved code quality and maintainability", "Knowledge sharing and team learning"]}
+PARSES_AS_JSON keys: ['benefits']

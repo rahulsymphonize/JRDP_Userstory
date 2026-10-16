@@ -1,0 +1,26 @@
+{
+  "observationCapture": "022",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/tok-rs-ok.txt",
+    "localhost:8102/api/v1/users/me/system-prompt"
+  ],
+  "observed": "HTTP 200\n",
+  "hypothesis": "O1: wrong audience -> 401",
+  "nextCapture": "023",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/tok-rs-aud.txt",
+    "localhost:8102/api/v1/users/me/system-prompt"
+  ]
+}

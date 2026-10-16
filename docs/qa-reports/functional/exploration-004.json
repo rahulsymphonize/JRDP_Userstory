@@ -1,0 +1,36 @@
+{
+  "observationCapture": "003",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/anthropic",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-anthropic-fake.json"
+  ],
+  "observed": "{\"code\":\"INVALID_KEY\",\"message\":\"The API key was rejected by the provider.\",\"correlationId\":\"24e73caf-34f1-4bd7-9178-1e569a2eceab\"}\nHTTP 422\n",
+  "hypothesis": "F2: valid key (mock provider) saves 200 with only last4 in the response",
+  "nextCapture": "004",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/openai",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-openai-mock.json"
+  ]
+}

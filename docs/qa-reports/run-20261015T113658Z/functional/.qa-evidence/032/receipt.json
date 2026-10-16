@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "id": "032",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "bash",
+    "-c",
+    "\ns=$(date +%s); curl -s -w ' HTTP %{http_code}' -H 'X-User-Id: qa-t' -H 'content-type: application/json' -X POST localhost:8100/api/v1/agent/execute -d '{\"task\":\"hi\"}' > /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/hang.out & pid=$!\nsleep 5; curl -s -o /dev/null -w 'readyz during hang: %{http_code} in %{time_total}s\\n' localhost:8100/readyz\nwait $pid; echo \"execute result: $(cat /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/hang.out) after $(( $(date +%s) - s ))s\"\npython3 -I -c \"import sqlite3; print('audit', sqlite3.connect('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/main.db').execute(\\\"select model_id,status,latency_ms from execution_audit where user_id='qa-t'\\\").fetchall())\""
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/run-20261015T113658Z/functional/.qa-evidence/032/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:40:40.000Z",
+      "deadlineAt": "2026-10-15T11:44:00.000Z",
+      "budgetMs": 200000,
+      "observedAt": "2026-10-15T11:40:40.001Z",
+      "remainingMs": 199999,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:42:40.119Z",
+      "deadlineAt": "2026-10-15T11:44:00.000Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:40:40.001Z",
+  "completedAt": "2026-10-15T11:42:40.120Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "1126180c210e2d7a2de21bd73fab5e0f329d2be34fb05906bda5345295990b2d",
+    "bytes": 294
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "95d9fd92e1cbac04fcb32567d38e343969173456486950b14fad671431170e18",
+    "bytes": 276
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

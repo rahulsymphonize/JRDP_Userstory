@@ -1,0 +1,28 @@
+{
+  "observationCapture": "024",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-b",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches/1/revert"
+  ],
+  "observed": "{\"code\":\"NOT_FOUND\",\"message\":\"That prompt version does not exist.\",\"correlationId\":\"3bc71ff0-6e3b-4eaf-b62e-4b2d4eb37f47\"}\nHTTP 404\n",
+  "hypothesis": "F5: revert to a missing version is 404",
+  "nextCapture": "025",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches/99/revert"
+  ]
+}

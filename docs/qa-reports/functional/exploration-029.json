@@ -1,0 +1,30 @@
+{
+  "observationCapture": "028",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hello\"}"
+  ],
+  "observed": "{\"output\":\"**Mock answer** to: hello\\n\\nOutput Format in effect: `Reply in JSON.`\",\"provider_id\":\"openai\",\"model_id\":\"mock-gpt-small\",\"base_version\":1,\"patch_version\":3,\"prompt_conflict\":false,\"tokens_in\":151,\"tokens_out\":12,\"correlation_id\":\"df5f20ae-ef25-4ed7-852f-abbefb608e81\"}\nHTTP 200\n",
+  "hypothesis": "F1: qa-b effective prompt is the base (no patch) despite qa-a patches",
+  "nextCapture": "029",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-b",
+    "localhost:8100/api/v1/users/me/system-prompt"
+  ]
+}

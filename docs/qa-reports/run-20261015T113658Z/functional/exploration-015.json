@@ -1,0 +1,28 @@
+{
+  "observationCapture": "014",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-g",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches",
+    "-d",
+    "{\"sections\":{\"Output Format\":\"Reply ONLY with a JSON object with keys \\\"benefits\\\" (array of strings). No markdown, no code fences.\"}}"
+  ],
+  "observed": "HTTP 201\n",
+  "hypothesis": "G2: patched run returns parseable JSON with key benefits; patch_version set",
+  "nextCapture": "015",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-g' -H 'content-type: application/json' -X POST localhost:8100/api/v1/agent/execute -d '{\"task\":\"Name two benefits of code review.\"}' | python3 -c 'import json,sys; d=json.load(sys.stdin); print(\"patch_version\",d.get(\"patch_version\"),\"code\",d.get(\"code\")); o=d.get(\"output\",\"\"); print(o[:300]);\ntry: print(\"PARSES_AS_JSON keys:\", list(json.loads(o).keys()))\nexcept Exception as e: print(\"NOT_JSON\", type(e).__name__)'"
+  ]
+}

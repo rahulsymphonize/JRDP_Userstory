@@ -1,0 +1,26 @@
+{
+  "observationCapture": "005",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/gemini-hdr.txt",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/gen-body.json"
+  ],
+  "observed": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"This model models/gemini-2.5-flash-lite is no longer available to new users. Please update your code to use models/gemini-3.5-flash-lite for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n\nHTTP 404\n",
+  "hypothesis": "G2/G4: after a real 404 the key must still be Valid (404 is model-level)",
+  "nextCapture": "006",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-g' localhost:8100/api/v1/providers | python3 -c 'import json,sys; print([p for p in json.load(sys.stdin) if p[\"id\"]==\"gemini\"][0])'"
+  ]
+}

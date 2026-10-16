@@ -1,0 +1,36 @@
+{
+  "observationCapture": "046",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-c",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches",
+    "-d",
+    "{\"sections\":{\"Rules\":\"- Be very brief.\"}}"
+  ],
+  "observed": "HTTP 201\n",
+  "hypothesis": "review candidate: revert to v1 creates v3 used on base v3; expected base_version 3, review predicts it stores 2",
+  "nextCapture": "047",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-c",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches/1/revert"
+  ]
+}

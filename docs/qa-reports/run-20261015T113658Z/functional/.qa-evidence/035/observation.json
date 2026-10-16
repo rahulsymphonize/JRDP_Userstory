@@ -1,0 +1,1 @@
+"save key B: {\"provider_id\":\"openai\",\"key_status\":\"Valid\",\"key_last4\":\"TES2\"}\nin-flight execute: {\"code\":\"INVALID_KEY\",\"message\":\"The API key was rejected by the provider.\",\"correlationId\":\"8f559e98-5e01-422a-9070-02e0f4e2aab4\"} HTTP 422\nstatus after: {'id': 'openai', 'name': 'OpenAI', 'key_status': 'Invalid', 'key_last4': 'TES2'}\n"

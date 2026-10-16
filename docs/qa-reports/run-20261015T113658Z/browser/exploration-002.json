@@ -1,0 +1,6 @@
+{
+ "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/run-20261015T113658Z/browser/deadline.json -- bash qa2/b002.sh 2>&1 | grep -v QA_DEADLINE | cut -c1-400",
+ "observed": "EFFECTIVE=Effective prompt: base v1 + patch v2\nRESET_DISABLED_UNTICKED=1\nREVERT_DISABLED_UNTICKED=1\nREVERT_ENABLED_TICKED=5\nAFTER_REVERT=Effective prompt: base v1 + patch v3 CHECKED=false\nAFTER_RESET=Effective prompt: base v1 (no patch) CHECKED=false RESET_DISABLED=1\nScreenshot saved (viewport): /Users/rahul/llm-agent/.gstack/qa-reports/run-20261015T113658Z/screenshots/b002-confirm-flow.png\nCONSOLE_ERRORS=(no console errors)",
+ "hypothesis": "B8 accessibility: list interactive controls without an accessible name and walk Tab focus order on the Provider tab.",
+ "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qa2/b003.sh (js unlabeled-controls scan; 14x Tab with activeElement labels; contrast of caption text)"
+}

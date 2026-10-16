@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "id": "040",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "python3",
+    "-I",
+    "-c",
+    "\nimport sqlite3\nneedles=[b'mockmockmockmock', b'qafakeqafake', b'qabadqabad']\nlog=open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/api.log','rb').read(); db=open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/qa.db','rb').read()\nprint('in_log', [n.decode() for n in needles if n in log]); print('in_db', [n.decode() for n in needles if n in db])\nc=sqlite3.connect('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/qa.db')\nprint('audit', c.execute('select user_id,provider_id,model_id,base_version,patch_version,tokens_in,tokens_out,status,length(correlation_id) from execution_audit').fetchall())\nprint('cred_cols', [r[1] for r in c.execute('pragma table_info(user_provider_credentials)')])"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/functional/.qa-evidence/040/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:16:02.890Z",
+      "deadlineAt": "2026-10-15T11:17:02.890Z",
+      "budgetMs": 60000,
+      "observedAt": "2026-10-15T11:16:02.892Z",
+      "remainingMs": 59998,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:16:02.968Z",
+      "deadlineAt": "2026-10-15T11:17:02.890Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:16:02.891Z",
+  "completedAt": "2026-10-15T11:16:02.969Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "e8f260959008a6493366fae4c6bc6a13e07b9e9fd8114973538d5d2229acd4b6",
+    "bytes": 225
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "626d4bf9d05c3d3da9fccbba376030f499c0b911919f751ebeb343acf3c61064",
+    "bytes": 218
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "observationCapture": "047",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-c",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches/1/revert"
+  ],
+  "observed": "HTTP 201\n",
+  "hypothesis": "observe qa-c history: base_version recorded for v3",
+  "nextCapture": "048",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-c",
+    "localhost:8100/api/v1/users/me/system-prompt/patches"
+  ]
+}

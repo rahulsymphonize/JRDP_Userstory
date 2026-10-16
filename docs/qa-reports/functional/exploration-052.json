@@ -1,0 +1,22 @@
+{
+  "observationCapture": "051",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-b",
+    "localhost:8100/api/v1/users/me/system-prompt",
+    "-o",
+    "/dev/null"
+  ],
+  "observed": "\nHTTP 200\n",
+  "hypothesis": "F12: base version is still 3 after the rejected publish (051 discarded the body; re-observe)",
+  "nextCapture": "052",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-b' localhost:8100/api/v1/users/me/system-prompt | python3 -c 'import json,sys; print(\"base_version\", json.load(sys.stdin)[\"base_version\"])'"
+  ]
+}

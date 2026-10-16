@@ -1,0 +1,36 @@
+{
+  "observationCapture": "003",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-g",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/model-preference",
+    "-d",
+    "{\"provider_id\":\"gemini\",\"model_id\":\"gemini-2.5-flash-lite\"}"
+  ],
+  "observed": "{\"provider_id\":\"gemini\",\"model_id\":\"gemini-2.5-flash-lite\"}\nHTTP 200\n",
+  "hypothesis": "G2: base prompt run on real Gemini; expect Markdown one-line summary then details, patch_version null",
+  "nextCapture": "004",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-g",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"Name two benefits of code review.\"}"
+  ]
+}

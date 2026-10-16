@@ -1,0 +1,22 @@
+{
+  "observationCapture": "052",
+  "observationArgv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-b' localhost:8100/api/v1/users/me/system-prompt | python3 -c 'import json,sys; print(\"base_version\", json.load(sys.stdin)[\"base_version\"])'"
+  ],
+  "observed": "base_version 3\n",
+  "hypothesis": "F9: documented test command on Postgres incl. concurrent patch versioning test",
+  "nextCapture": "053",
+  "nextArgv": [
+    "env",
+    "TEST_DATABASE_URL=postgresql+psycopg://test@localhost:55432/agent_test",
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:warnings",
+    "tests"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "observationCapture": "056",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-pg",
+    "-H",
+    "content-type: application/json",
+    "-H",
+    "X-Correlation-ID: qa-trace-00000000-0000000000-000000",
+    "-X",
+    "POST",
+    "localhost:8101/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hello\"}"
+  ],
+  "observed": "HTTP 200\n",
+  "hypothesis": "review candidate: execute on a model the key cannot access (403 model_not_found); expected a model-level error, key stays Valid",
+  "nextCapture": "057",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-e",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hello\"}"
+  ]
+}

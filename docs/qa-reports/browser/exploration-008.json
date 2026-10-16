@@ -1,0 +1,6 @@
+{
+  "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash qafix/b008.sh",
+  "observed": "API_TRUTH={'id': 'openai', 'name': 'OpenAI', 'key_status': 'Invalid', 'key_last4': 'TEST'}\nUI_BEFORE_RERUN=API key status: 🟢 Valid · ends in TEST\n[browse] The operation timed out.\nUI_AFTER_RERUN=API key status: 🔴 Invalid · ends in TEST\nScreenshot saved (viewport): /Users/rahul/llm-agent/.gstack/qa-reports/screenshots/b008-status-after-rerun.png",
+  "hypothesis": "B6: check the layout at phone width (375px) on the Provider tab.",
+  "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash -c \"$B viewport 375x812; sleep 3; $B screenshot --viewport b009-mobile.png; $B js horizontal-overflow check; $B viewport 1400x1000\""
+}

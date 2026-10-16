@@ -1,0 +1,16 @@
+{
+  "observationCapture": "018",
+  "observationArgv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-g4' localhost:8100/api/v1/providers | python3 -c 'import json,sys; print([p for p in json.load(sys.stdin) if p[\"id\"]==\"gemini\"][0])'"
+  ],
+  "observed": "{'id': 'gemini', 'name': 'Google (Gemini)', 'key_status': 'Valid', 'key_last4': '46Rw'}\n",
+  "hypothesis": "diagnose 017: raw Google response for gemini-4-argon on this key",
+  "nextCapture": "019",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "curl -s -w '\\nHTTP %{http_code}\\n' -H @/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/gemini-hdr.txt -H 'content-type: application/json' -X POST https://generativelanguage.googleapis.com/v1beta/models/gemini-4-argon:generateContent -d @/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/gen-hi.json | head -c 900"
+  ]
+}

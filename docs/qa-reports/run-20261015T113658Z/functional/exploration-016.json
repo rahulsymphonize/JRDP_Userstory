@@ -1,0 +1,17 @@
+{
+  "observationCapture": "015",
+  "observationArgv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-g' -H 'content-type: application/json' -X POST localhost:8100/api/v1/agent/execute -d '{\"task\":\"Name two benefits of code review.\"}' | python3 -c 'import json,sys; d=json.load(sys.stdin); print(\"patch_version\",d.get(\"patch_version\"),\"code\",d.get(\"code\")); o=d.get(\"output\",\"\"); print(o[:300]);\ntry: print(\"PARSES_AS_JSON keys:\", list(json.loads(o).keys()))\nexcept Exception as e: print(\"NOT_JSON\", type(e).__name__)'"
+  ],
+  "observed": "patch_version 2 code None\n{\"benefits\": [\"Improved code quality and maintainability\", \"Knowledge sharing and team learning\"]}\nPARSES_AS_JSON keys: ['benefits']\n",
+  "hypothesis": "G2: audit rows for qa-g record provider, model, base/patch versions, tokens, status; no key",
+  "nextCapture": "016",
+  "nextArgv": [
+    "python3",
+    "-I",
+    "-c",
+    "\nimport sqlite3; c=sqlite3.connect('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/main.db')\nfor r in c.execute(\"select model_id,base_version,patch_version,tokens_in,tokens_out,status from execution_audit where user_id='qa-g' order by id\"): print(r)\nprint('key bytes in db:', b'KEYPFX' in open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/main.db','rb').read(), '| in api log:', b'KEYPFX' in open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/api.log','rb').read())"
+  ]
+}

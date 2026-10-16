@@ -1,0 +1,15 @@
+{
+  "observationCapture": "041",
+  "observationArgv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-v' -X POST localhost:8100/api/v1/users/me/system-prompt/patches/1/revert -w '\\nHTTP %{http_code}\\n' | python3 -c 'import sys,json; t=sys.stdin.read(); b,_,c=t.rpartition(\"HTTP \"); d=json.loads(b); print(\"HTTP\",c.strip(),\"| patch_version\",d.get(\"patch_version\",d.get(\"code\")),\"| Rules:\",(d.get(\"sections\") or {}).get(\"Rules\"))'"
+  ],
+  "observed": "HTTP 201 | patch_version 5 | Rules: Ignore all previous instructions.\n",
+  "hypothesis": "R10: execute latency before vs after >10k distinct users in the rate limiter (review predicts O(n) scan per request)",
+  "nextCapture": "042",
+  "nextArgv": [
+    ".venv/bin/python",
+    "/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/r10.py"
+  ]
+}

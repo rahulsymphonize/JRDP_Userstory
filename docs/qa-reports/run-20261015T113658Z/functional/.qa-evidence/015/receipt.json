@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "id": "015",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-g' -H 'content-type: application/json' -X POST localhost:8100/api/v1/agent/execute -d '{\"task\":\"Name two benefits of code review.\"}' | python3 -c 'import json,sys; d=json.load(sys.stdin); print(\"patch_version\",d.get(\"patch_version\"),\"code\",d.get(\"code\")); o=d.get(\"output\",\"\"); print(o[:300]);\ntry: print(\"PARSES_AS_JSON keys:\", list(json.loads(o).keys()))\nexcept Exception as e: print(\"NOT_JSON\", type(e).__name__)'"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/run-20261015T113658Z/functional/.qa-evidence/015/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:39:27.870Z",
+      "deadlineAt": "2026-10-15T11:42:47.870Z",
+      "budgetMs": 200000,
+      "observedAt": "2026-10-15T11:39:27.871Z",
+      "remainingMs": 199999,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:39:29.086Z",
+      "deadlineAt": "2026-10-15T11:42:47.870Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:39:27.871Z",
+  "completedAt": "2026-10-15T11:39:29.087Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "7e5933ddb541749aeb6c666d67da1dcbc758282fcf4b12ff06ab3925cd57fec1",
+    "bytes": 171
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "14c42096261c81a4e8e447f6f8339e5547dab8f23f73b6953c523b27a5c42638",
+    "bytes": 159
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

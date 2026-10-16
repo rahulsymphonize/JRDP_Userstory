@@ -1,0 +1,35 @@
+{
+  "observationCapture": "044",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-c",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches",
+    "-d",
+    "{\"sections\":{\"Rules\":\"- Be brief.\"}}"
+  ],
+  "observed": "HTTP 201\n",
+  "hypothesis": "setup: publish base v3 that changes only Output Format (qa-c Rules patch still applies)",
+  "nextCapture": "045",
+  "nextArgv": [
+    "env",
+    "APP_ENV=development",
+    "AUTH_MODE=dev",
+    "KEKS=qa:l+ro2nVuB63ATHBIoN7DLuJRIVhOSWNVQvvoyGQEo4s=",
+    "DATABASE_URL=sqlite:////private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/qa.db",
+    ".venv/bin/python",
+    "-m",
+    "backend.manage",
+    "publish-base",
+    "/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/base_v3.json"
+  ]
+}

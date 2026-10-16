@@ -1,0 +1,69 @@
+{
+  "revision": "sha256:a023c2aa98454c45",
+  "runtime": "bun 1.4.2",
+  "cwd": "/Users/rahul/llm-agent",
+  "limits": [
+    "checkpoint 004 observed text filtered QA_DEADLINE receipt lines and screenshot line",
+    "B-005 and B-006 inconclusive (script assumptions: provider default and user-id reset after reload)",
+    "B-008 one of two rerun clicks timed out; final status read succeeded"
+  ],
+  "evidence": [],
+  "learning": [
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash -c \"$B viewport 1400x1000; $B goto http://localhost:8601; $B wait --networkidle; sleep 5; $B snapshot -i | grep -E '@e[0-9]+ \\['; echo URL=$($B url); echo CONSOLE_ERRORS=$($B console --errors | grep -v 'EXTERNAL CONTENT'); $B screenshot --viewport .gstack/qa-reports/screenshots/b001-initial.png\"",
+      "hypothesis": "B2/B3: as a fresh user, save the mock OpenAI key, then turn on the free-only toggle; OpenAI has no free models so an info message should replace the model dropdown.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qafix/b002.sh (set user qa-ui, select OpenAI, save key from fixture, read status, tick Free-tier models only, read info + model box, screenshot b002)"
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash qafix/b002.sh",
+      "hypothesis": "B4: the API diff for an edit to the last section (Behaviour) joined '-old+new' on one line (functional 018/063); check whether the UI preview shows the same broken diff to the user.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qafix/b003.sh (System Prompt tab, fill Behaviour with 'Be concise.', Ctrl+Enter, Preview changes, print last diff code block, screenshot b003)"
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash qafix/b003.sh",
+      "hypothesis": "Exact replay of B-003 from the same state (reload resets the unsaved edit) to confirm the joined diff line is deterministic in the UI.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash -c \"$B reload; sleep 5; bash qafix/b003.sh\""
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash -c \"$B reload; sleep 5; bash qafix/b003.sh\" 2>&1 | grep -vE 'Screenshot saved|QA_DEADLINE'",
+      "hypothesis": "B5: functional 057-062 showed a 403 on one model marks the whole key Invalid. Check what the user sees in the UI when running a task on the forbidden model, and the key status afterwards.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qafix/b005.sh (Provider tab: untick free-only, Use this model = mock-gpt-forbidden; Run tab: run 'hello'; read alerts; Provider tab: read key status; screenshot b005)"
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash qafix/b005.sh",
+      "hypothesis": "B-005 was inconclusive: after the B-004 reload the provider dropdown defaulted to Anthropic (qa-ui has a key but no saved preference), so the script never reached OpenAI. Re-run with an explicit OpenAI selection first.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qafix/b006.sh (select OpenAI via combobox type+Enter, then the b005 steps)"
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash qafix/b006.sh",
+      "hypothesis": "B-006 inconclusive: the B-004 reload reset the sidebar User ID to its default 'user1' (no key). Set User ID to qa-ui explicitly, then select OpenAI and repeat the forbidden-model run.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qafix/b007.sh (fill User ID qa-ui + Enter, then b006 steps)"
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash qafix/b007.sh",
+      "hypothesis": "AFTER_STATUS still shows Valid although the backend marks the key Invalid on INVALID_KEY. Hypothesis: the provider tab rendered before the execute call in the same rerun, so the status is stale. Check API truth, then force a rerun (toggle free-only twice) and re-read status.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qafix/b008.sh (curl qa-ui providers on :8100; toggle free-only on/off; read status; screenshot b008)"
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash qafix/b008.sh",
+      "hypothesis": "B6: check the layout at phone width (375px) on the Provider tab.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash -c \"$B viewport 375x812; sleep 3; $B screenshot --viewport b009-mobile.png; $B js horizontal-overflow check; $B viewport 1400x1000\""
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash -c \"$B viewport 375x812; sleep 3; $B screenshot --viewport .gstack/qa-reports/screenshots/b009-mobile.png; echo OVERFLOW_X=$($B js 'document.documentElement.scrollWidth > window.innerWidth'); echo SIDEBAR_VISIBLE=$($B js 'getComputedStyle(document.querySelector(\\\"[data-testid=stSidebar]\\\")).transform'); $B viewport 1400x1000\"",
+      "hypothesis": "B6: with the owned QA API (pid 12242, :8100) stopped, the UI should show 'The backend is not reachable.' instead of crashing.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash -c \"kill 12242; sleep 1; $B reload; sleep 6; read alerts + exception blocks; screenshot b010\" (API restarted afterwards, outside the probe)"
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash -c \". qafix/blib.sh; kill 12242; sleep 1; $B reload; sleep 6; echo ALERTS=$(alerts); echo EXCEPTIONS=$(txt 'document.querySelectorAll(\\\"[data-testid=stException]\\\").length'); $B screenshot --viewport .gstack/qa-reports/screenshots/b010-backend-down.png; echo CONSOLE_ERRORS=$($B console --errors | grep -v 'EXTERNAL CONTENT')\"",
+      "hypothesis": "B5 success path not yet observed in this invocation: as qa-ui, re-save the key, choose mock-gpt-small, run a task and expect output with the caption showing provider/model/base version; then qa-b sees its own (no key) state.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qafix/b011.sh"
+    }
+  ],
+  "verdict": {
+    "status": "inconclusive",
+    "open": [
+      "no evidence rows"
+    ]
+  }
+}

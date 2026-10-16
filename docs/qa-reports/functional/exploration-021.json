@@ -1,0 +1,40 @@
+{
+  "observationCapture": "020",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches",
+    "-d",
+    "{\"sections\":{\"Output Format\":\"Reply in JSON.\"}}"
+  ],
+  "observed": "HTTP 201\n",
+  "hypothesis": "F5: second apply creates v2; history lists v2 active then v1",
+  "nextCapture": "021",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches",
+    "-d",
+    "{\"sections\":{\"Output Format\":\"Reply in YAML.\"}}",
+    "-o",
+    "/dev/null"
+  ]
+}

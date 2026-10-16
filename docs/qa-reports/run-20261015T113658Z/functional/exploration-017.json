@@ -1,0 +1,27 @@
+{
+  "observationCapture": "016",
+  "observationArgv": [
+    "python3",
+    "-I",
+    "-c",
+    "\nimport sqlite3; c=sqlite3.connect('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/main.db')\nfor r in c.execute(\"select model_id,base_version,patch_version,tokens_in,tokens_out,status from execution_audit where user_id='qa-g' order by id\"): print(r)\nprint('key bytes in db:', b'KEYPFX' in open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/main.db','rb').read(), '| in api log:', b'KEYPFX' in open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/api.log','rb').read())"
+  ],
+  "observed": "('gemini-2.5-flash-lite', 1, None, None, None, 'MODEL_UNAVAILABLE')\n('gemini-2.5-flash', 1, None, 152, 106, 'SUCCESS')\n('gemini-2.5-flash', 1, 1, 163, 166, 'SUCCESS')\n('gemini-2.5-flash', 1, 1, 163, 152, 'SUCCESS')\n('gemini-2.5-flash', 1, None, 159, 38, 'SUCCESS')\n('gemini-2.5-flash', 1, 2, 159, 18, 'SUCCESS')\nkey bytes in db: False | in api log: False\n",
+  "hypothesis": "G4: paid-only model gemini-4-argon on this key; expect a quota/permission error that is not INVALID_KEY",
+  "nextCapture": "017",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-g4",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hi\"}"
+  ]
+}

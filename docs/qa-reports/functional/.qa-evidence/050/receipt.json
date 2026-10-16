@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "id": "050",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "bash",
+    "-c",
+    "env -u KEKS APP_ENV=production AUTH_MODE=dev DATABASE_URL=sqlite:////private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/x.db .venv/bin/python -m backend.manage migrate; echo EXIT=$?"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/functional/.qa-evidence/050/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:16:32.995Z",
+      "deadlineAt": "2026-10-15T11:17:32.995Z",
+      "budgetMs": 60000,
+      "observedAt": "2026-10-15T11:16:32.996Z",
+      "remainingMs": 59999,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:16:33.125Z",
+      "deadlineAt": "2026-10-15T11:17:32.995Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:16:32.996Z",
+  "completedAt": "2026-10-15T11:16:33.126Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "6fa0fc54a6f72ad1ec886f3afff8765c284afb873d919160a5b01b5bae0f67ff",
+    "bytes": 11
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "4bf4fca02e6eeaf7f1c510b82c756e7f8a3c567a230bae1094b254adc774f38b",
+    "bytes": 7
+  },
+  "stderr": {
+    "sha256": "a88a1d963d9873f164211824a0994216d708a6f0f5b50b80fbe7d951e2b66644",
+    "bytes": 182
+  }
+}

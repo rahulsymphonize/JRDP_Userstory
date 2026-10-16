@@ -1,0 +1,4 @@
+in_log []
+in_db []
+audit [('qa-a', 'openai', 'mock-gpt-small', 1, 3, 151, 12, 'SUCCESS', 36)]
+cred_cols ['id', 'user_id', 'provider_id', 'encrypted_key', 'wrapped_dek', 'kek_id', 'key_last4', 'status', 'validated_at']

@@ -1,0 +1,1 @@
+"readyz during hang: 200 in 0.003131s\nexecute result: {\"code\":\"PROVIDER_UNAVAILABLE\",\"message\":\"The provider is unavailable. Try again later.\",\"correlationId\":\"0734e6b3-0344-4aec-9d07-4fd28083a8ce\"} HTTP 502 after 120s\naudit [('mock-gpt-hang', 'PROVIDER_UNAVAILABLE', 120003)]\n"

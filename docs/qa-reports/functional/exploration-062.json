@@ -1,0 +1,30 @@
+{
+  "observationCapture": "061",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-e",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hello\"}"
+  ],
+  "observed": "{\"code\":\"INVALID_KEY\",\"message\":\"The API key was rejected by the provider.\",\"correlationId\":\"8b0d5e20-3dde-4479-861b-b449b1e358e9\"}\nHTTP 422\n",
+  "hypothesis": "replay of 058: key flipped to Invalid again",
+  "nextCapture": "062",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-e",
+    "localhost:8100/api/v1/providers"
+  ]
+}

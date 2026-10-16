@@ -1,0 +1,36 @@
+{
+  "observationCapture": "002",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/openai",
+    "-d",
+    "{\"api_key\":\"not-a-key\"}"
+  ],
+  "observed": "{\"code\":\"VALIDATION_ERROR\",\"message\":\"The API key format is not valid for this provider.\",\"correlationId\":\"b0772ea0-c0dc-4a04-a13c-55c70da66b72\"}\nHTTP 400\n",
+  "hypothesis": "F2: well-formed key rejected by the real Anthropic API must map to 422 INVALID_KEY with no key echo",
+  "nextCapture": "003",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/anthropic",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-anthropic-fake.json"
+  ]
+}

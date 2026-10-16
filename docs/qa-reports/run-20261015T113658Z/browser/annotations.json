@@ -1,0 +1,9 @@
+{
+ "revision": "sha256:a023c2aa98454c45",
+ "evidence": [],
+ "limits": [
+  "B-001 inconclusive (ambiguous selector; stale console buffer from an earlier run)",
+  "contrast check ignores alpha; approximate",
+  "performance measured on localhost only"
+ ]
+}

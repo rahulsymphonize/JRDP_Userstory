@@ -1,0 +1,6 @@
+{
+  "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash qafix/b002.sh",
+  "observed": "STATUS=API key status: 🟢 Valid · ends in TEST\nINPUT_EMPTY=true\nKEY_IN_PAGE=false\nMODEL_BOX=[combobox] \"Model\": mock-gpt-forbidden\nAFTER_TOGGLE_ALERTS=No free-tier models are listed for OpenAI. Calls are billed to your key.\nAFTER_TOGGLE_MODEL_BOX=none\nUSE_BUTTON=0\nScreenshot saved (viewport): /Users/rahul/llm-agent/.gstack/qa-reports/screenshots/b002-free-only-no-models.png\nCONSOLE_ERRORS=(no console errors)",
+  "hypothesis": "B4: the API diff for an edit to the last section (Behaviour) joined '-old+new' on one line (functional 018/063); check whether the UI preview shows the same broken diff to the user.",
+  "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qafix/b003.sh (System Prompt tab, fill Behaviour with 'Be concise.', Ctrl+Enter, Preview changes, print last diff code block, screenshot b003)"
+}

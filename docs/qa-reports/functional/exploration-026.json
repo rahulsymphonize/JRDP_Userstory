@@ -1,0 +1,28 @@
+{
+  "observationCapture": "025",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches/99/revert"
+  ],
+  "observed": "{\"code\":\"NOT_FOUND\",\"message\":\"That prompt version does not exist.\",\"correlationId\":\"c1592759-6bd8-4bea-9844-0d305e033b4d\"}\nHTTP 404\n",
+  "hypothesis": "F7: non-integer version path param is a 400 validation error, not 500",
+  "nextCapture": "026",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches/abc/revert"
+  ]
+}

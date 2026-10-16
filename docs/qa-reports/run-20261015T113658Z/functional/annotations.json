@@ -1,0 +1,306 @@
+{
+ "revision": "sha256:a023c2aa98454c45",
+ "evidence": [
+  {
+   "capture": "001",
+   "command": "see .qa-evidence/001",
+   "contract": "G1 key save real Gemini",
+   "expected": "G1 key save real Gemini",
+   "classification": "pass"
+  },
+  {
+   "capture": "002",
+   "command": "see .qa-evidence/002",
+   "contract": "G1 real model list + free tags",
+   "expected": "G1 real model list + free tags",
+   "classification": "pass"
+  },
+  {
+   "capture": "003",
+   "command": "see .qa-evidence/003",
+   "contract": "G2 setup pref flash-lite",
+   "expected": "G2 setup pref flash-lite",
+   "classification": "pass"
+  },
+  {
+   "capture": "004",
+   "command": "see .qa-evidence/004",
+   "contract": "G2 flash-lite run -> correct MODEL_UNAVAILABLE for a listed-but-retired model",
+   "expected": "G2 flash-lite run -> correct MODEL_UNAVAILABLE for a listed-but-retired model",
+   "classification": "pass"
+  },
+  {
+   "capture": "005",
+   "command": "see .qa-evidence/005",
+   "contract": "diagnose 004 direct Google 404",
+   "expected": "diagnose 004 direct Google 404",
+   "classification": "pass"
+  },
+  {
+   "capture": "006",
+   "command": "see .qa-evidence/006",
+   "contract": "key stays Valid after 404",
+   "expected": "key stays Valid after 404",
+   "classification": "pass"
+  },
+  {
+   "capture": "007",
+   "command": "see .qa-evidence/007",
+   "contract": "G2 setup pref flash",
+   "expected": "G2 setup pref flash",
+   "classification": "pass"
+  },
+  {
+   "capture": "008",
+   "command": "see .qa-evidence/008",
+   "contract": "G2 base run real Gemini",
+   "expected": "G2 base run real Gemini",
+   "classification": "pass"
+  },
+  {
+   "capture": "009",
+   "command": "see .qa-evidence/009",
+   "contract": "G3 setup: bypass patch accepted (first-pass ISSUE-F3)",
+   "expected": "G3 setup: bypass patch accepted (first-pass ISSUE-F3)",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "010",
+   "command": "see .qa-evidence/010",
+   "contract": "G3 real model leaks system prompt with bypass patch",
+   "expected": "G3 real model leaks system prompt with bypass patch",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "011",
+   "command": "see .qa-evidence/011",
+   "contract": "replay of 010",
+   "expected": "replay of 010",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "012",
+   "command": "see .qa-evidence/012",
+   "contract": "control reset",
+   "expected": "control reset",
+   "classification": "pass"
+  },
+  {
+   "capture": "013",
+   "command": "see .qa-evidence/013",
+   "contract": "control: base prompt refuses",
+   "expected": "control: base prompt refuses",
+   "classification": "pass"
+  },
+  {
+   "capture": "014",
+   "command": "see .qa-evidence/014",
+   "contract": "G2 JSON patch apply",
+   "expected": "G2 JSON patch apply",
+   "classification": "pass"
+  },
+  {
+   "capture": "015",
+   "command": "see .qa-evidence/015",
+   "contract": "G2 patched run returns JSON",
+   "expected": "G2 patched run returns JSON",
+   "classification": "pass"
+  },
+  {
+   "capture": "016",
+   "command": "see .qa-evidence/016",
+   "contract": "audit rows + no key in db/log",
+   "expected": "audit rows + no key in db/log",
+   "classification": "pass"
+  },
+  {
+   "capture": "017",
+   "command": "see .qa-evidence/017",
+   "contract": "G4 paid-only model -> QUOTA_EXCEEDED message misleading",
+   "expected": "G4 paid-only model -> QUOTA_EXCEEDED message misleading",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "018",
+   "command": "see .qa-evidence/018",
+   "contract": "key stays Valid after 429",
+   "expected": "key stays Valid after 429",
+   "classification": "pass"
+  },
+  {
+   "capture": "019",
+   "command": "see .qa-evidence/019",
+   "contract": "diagnose 017 direct Google free-tier limit 0",
+   "expected": "diagnose 017 direct Google free-tier limit 0",
+   "classification": "pass"
+  },
+  {
+   "capture": "020",
+   "command": "see .qa-evidence/020",
+   "contract": "G4 TTS model 400 mapped to 502 try-again",
+   "expected": "G4 TTS model 400 mapped to 502 try-again",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "021",
+   "command": "see .qa-evidence/021",
+   "contract": "diagnose 020 direct Google 400 + key Valid",
+   "expected": "diagnose 020 direct Google 400 + key Valid",
+   "classification": "pass"
+  },
+  {
+   "capture": "022",
+   "command": "see .qa-evidence/022",
+   "contract": "O1 valid RS256 200",
+   "expected": "O1 valid RS256 200",
+   "classification": "pass"
+  },
+  {
+   "capture": "023",
+   "command": "see .qa-evidence/023",
+   "contract": "O1 wrong aud 401",
+   "expected": "O1 wrong aud 401",
+   "classification": "pass"
+  },
+  {
+   "capture": "024",
+   "command": "see .qa-evidence/024",
+   "contract": "O1 wrong iss 401",
+   "expected": "O1 wrong iss 401",
+   "classification": "pass"
+  },
+  {
+   "capture": "025",
+   "command": "see .qa-evidence/025",
+   "contract": "O1 expired 401",
+   "expected": "O1 expired 401",
+   "classification": "pass"
+  },
+  {
+   "capture": "026",
+   "command": "see .qa-evidence/026",
+   "contract": "O1 alg none 401",
+   "expected": "O1 alg none 401",
+   "classification": "pass"
+  },
+  {
+   "capture": "027",
+   "command": "see .qa-evidence/027",
+   "contract": "O1 X-User-Id ignored in oidc mode",
+   "expected": "O1 X-User-Id ignored in oidc mode",
+   "classification": "pass"
+  },
+  {
+   "capture": "028",
+   "command": "see .qa-evidence/028",
+   "contract": "O2 ES256 rejected with spaced OIDC_ALGORITHMS",
+   "expected": "O2 ES256 rejected with spaced OIDC_ALGORITHMS",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "029",
+   "command": "see .qa-evidence/029",
+   "contract": "O1 per-sub isolation",
+   "expected": "O1 per-sub isolation",
+   "classification": "pass"
+  },
+  {
+   "capture": "030",
+   "command": "see .qa-evidence/030",
+   "contract": "replay of 028",
+   "expected": "replay of 028",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "031",
+   "command": "see .qa-evidence/031",
+   "contract": "minimize: no-space config accepts ES256",
+   "expected": "minimize: no-space config accepts ES256",
+   "classification": "pass"
+  },
+  {
+   "capture": "032",
+   "command": "see .qa-evidence/032",
+   "contract": "T1 timeout 502 at 120s, server responsive, audited",
+   "expected": "T1 timeout 502 at 120s, server responsive, audited",
+   "classification": "pass"
+  },
+  {
+   "capture": "033",
+   "command": "see .qa-evidence/033",
+   "contract": "R2 in-flight 401 flips new key Invalid",
+   "expected": "R2 in-flight 401 flips new key Invalid",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "034",
+   "command": "see .qa-evidence/034",
+   "contract": "replay setup",
+   "expected": "replay setup",
+   "classification": "pass"
+  },
+  {
+   "capture": "035",
+   "command": "see .qa-evidence/035",
+   "contract": "replay of 033",
+   "expected": "replay of 033",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "036",
+   "command": "see .qa-evidence/036",
+   "contract": "R6 setup loose-rule patch",
+   "expected": "R6 setup loose-rule patch",
+   "classification": "pass"
+  },
+  {
+   "capture": "037",
+   "command": "see .qa-evidence/037",
+   "contract": "R6 control current rules reject",
+   "expected": "R6 control current rules reject",
+   "classification": "pass"
+  },
+  {
+   "capture": "038",
+   "command": "see .qa-evidence/038",
+   "contract": "R6 setup normal patch",
+   "expected": "R6 setup normal patch",
+   "classification": "pass"
+  },
+  {
+   "capture": "039",
+   "command": "see .qa-evidence/039",
+   "contract": "R6 revert re-activates disallowed text",
+   "expected": "R6 revert re-activates disallowed text",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "040",
+   "command": "see .qa-evidence/040",
+   "contract": "replay setup",
+   "expected": "replay setup",
+   "classification": "pass"
+  },
+  {
+   "capture": "041",
+   "command": "see .qa-evidence/041",
+   "contract": "replay of 039",
+   "expected": "replay of 039",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "042",
+   "command": "see .qa-evidence/042",
+   "contract": "R10 latency 2.4->4.6 ms median after 10.5k buckets",
+   "expected": "R10 latency 2.4->4.6 ms median after 10.5k buckets",
+   "classification": "product-defect"
+  }
+ ],
+ "limits": [
+  "real Gemini output is non-deterministic; leak replay matched in substance (system prompt reproduced), not byte-for-byte",
+  "OpenAI/Anthropic/Mistral real calls blocked: no keys",
+  "OIDC tested against a local JWKS stand-in, not a hosted IdP",
+  "R6 simulates a rules change with a harness that disables the denylist on a second process sharing the DB",
+  "R10 is a single-process measurement on localhost"
+ ]
+}

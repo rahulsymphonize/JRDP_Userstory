@@ -1,0 +1,26 @@
+{
+  "observationCapture": "017",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-g4",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hi\"}"
+  ],
+  "observed": "{\"code\":\"QUOTA_EXCEEDED\",\"message\":\"Your provider quota is exhausted.\",\"correlationId\":\"1cead5ed-a922-4fa3-95c8-ca69eda6f867\"}\nHTTP 429\n",
+  "hypothesis": "G4: key status after the paid-model error (should stay Valid)",
+  "nextCapture": "018",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-g4' localhost:8100/api/v1/providers | python3 -c 'import json,sys; print([p for p in json.load(sys.stdin) if p[\"id\"]==\"gemini\"][0])'"
+  ]
+}

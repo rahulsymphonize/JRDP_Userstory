@@ -1,0 +1,36 @@
+{
+  "observationCapture": "059",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-e",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/model-preference",
+    "-d",
+    "{\"provider_id\":\"openai\",\"model_id\":\"mock-gpt-small\"}"
+  ],
+  "observed": "{\"code\":\"NO_VALID_KEY\",\"message\":\"Your API key for this provider is invalid. Replace it to continue.\",\"correlationId\":\"a6e6a9e6-9f51-4763-bdcb-8683d781ebe1\"}\nHTTP 400\n",
+  "hypothesis": "replay setup: re-save the same valid key -> Valid again (preference still mock-gpt-forbidden)",
+  "nextCapture": "060",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-e",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/openai",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-openai-mock.json"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "observationCapture": "001",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-g",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/gemini",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/body-gemini-real.json"
+  ],
+  "observed": "{\"provider_id\":\"gemini\",\"key_status\":\"Valid\",\"key_last4\":\"46Rw\"}\nHTTP 200\n",
+  "hypothesis": "G1: real model list returns ids with free_tier tags matching GEMINI_FREE_TIER",
+  "nextCapture": "002",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-g' localhost:8100/api/v1/providers/gemini/models | python3 -c 'import json,sys; m=json.load(sys.stdin); f=[x[\"id\"] for x in m if x[\"free_tier\"]]; print(len(m),\"models\",len(f),\"free\"); print(f)'"
+  ]
+}

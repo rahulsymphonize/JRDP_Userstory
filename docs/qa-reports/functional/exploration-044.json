@@ -1,0 +1,34 @@
+{
+  "observationCapture": "043",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches/1/revert"
+  ],
+  "observed": "{\"code\":\"PATCH_CONFLICT\",\"message\":\"That version no longer fits the current base prompt. Edit and apply it again.\",\"correlationId\":\"6d04897e-39b0-4923-b216-570e9b179375\"}\nHTTP 409\n",
+  "hypothesis": "review candidate setup: qa-c patch v1 on Rules at base v2",
+  "nextCapture": "044",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-c",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches",
+    "-d",
+    "{\"sections\":{\"Rules\":\"- Be brief.\"}}"
+  ]
+}

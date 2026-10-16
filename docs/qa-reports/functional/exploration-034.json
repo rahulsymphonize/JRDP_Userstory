@@ -1,0 +1,34 @@
+{
+  "observationCapture": "033",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "--data-binary",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-1mb.json"
+  ],
+  "observed": "{\"code\":\"PAYLOAD_TOO_LARGE\",\"message\":\"Request is too large.\",\"correlationId\":\"7efad29a-57a5-4feb-931f-c902a571c775\"}\nHTTP 413\n",
+  "hypothesis": "F7 (review candidate): malformed Content-Length should be a 400, review predicts 500 INTERNAL_ERROR",
+  "nextCapture": "034",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "Content-Length: abc",
+    "-X",
+    "GET",
+    "localhost:8100/api/v1/providers"
+  ]
+}

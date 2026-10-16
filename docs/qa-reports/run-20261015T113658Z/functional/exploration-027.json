@@ -1,0 +1,28 @@
+{
+  "observationCapture": "026",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/tok-none.txt",
+    "localhost:8102/api/v1/users/me/system-prompt"
+  ],
+  "observed": "HTTP 401\n",
+  "hypothesis": "O1: dev X-User-Id header must not be accepted in oidc mode -> 401",
+  "nextCapture": "027",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: oidc-qa-user",
+    "localhost:8102/api/v1/users/me/system-prompt"
+  ]
+}

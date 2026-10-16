@@ -1,0 +1,32 @@
+{
+  "observationCapture": "036",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-rl2",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/openai",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-openai-bad.json"
+  ],
+  "observed": "HTTP 422\n",
+  "hypothesis": "F10: error body correlationId equals the X-Correlation-ID response header",
+  "nextCapture": "037",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-D",
+    "-",
+    "-H",
+    "X-User-Id: qa-a",
+    "localhost:8100/api/v1/providers/nope/models"
+  ]
+}

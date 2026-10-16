@@ -1,0 +1,36 @@
+{
+  "observationCapture": "016",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches",
+    "-d",
+    "{\"sections\":{\"Secret\":\"x\"}}"
+  ],
+  "observed": "{\"code\":\"VALIDATION_ERROR\",\"message\":\"Unknown section.\",\"correlationId\":\"fcc2e58b-6ccd-465c-b355-395c726fa0af\"}\nHTTP 400\n",
+  "hypothesis": "F5: a section over 4000 chars must be 400",
+  "nextCapture": "017",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-oversize.json"
+  ]
+}

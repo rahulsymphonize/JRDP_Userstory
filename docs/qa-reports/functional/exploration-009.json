@@ -1,0 +1,24 @@
+{
+  "observationCapture": "008",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "localhost:8100/api/v1/providers/gemini/models"
+  ],
+  "observed": "{\"code\":\"NO_API_KEY\",\"message\":\"Add an API key for this provider first.\",\"correlationId\":\"77a168a2-7ae3-494d-94a8-8438c3f3189c\"}\nHTTP 400\n",
+  "hypothesis": "F3: unknown provider must be 404 PROVIDER_NOT_FOUND",
+  "nextCapture": "009",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "localhost:8100/api/v1/providers/nope/models"
+  ]
+}

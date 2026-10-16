@@ -1,0 +1,480 @@
+{
+ "evidence": [
+  {
+   "capture": "001",
+   "command": "see .qa-evidence/001",
+   "contract": "F1",
+   "expected": "401 without identity",
+   "classification": "pass"
+  },
+  {
+   "capture": "002",
+   "command": "see .qa-evidence/002",
+   "contract": "F2",
+   "expected": "400 bad format",
+   "classification": "pass"
+  },
+  {
+   "capture": "003",
+   "command": "see .qa-evidence/003",
+   "contract": "F2",
+   "expected": "422 INVALID_KEY, no echo",
+   "classification": "pass"
+  },
+  {
+   "capture": "004",
+   "command": "see .qa-evidence/004",
+   "contract": "F2",
+   "expected": "200 last4 only",
+   "classification": "pass"
+  },
+  {
+   "capture": "005",
+   "command": "see .qa-evidence/005",
+   "contract": "F2",
+   "expected": "422 on bad replacement",
+   "classification": "pass"
+  },
+  {
+   "capture": "006",
+   "command": "see .qa-evidence/006",
+   "contract": "F2",
+   "expected": "stored key still Valid",
+   "classification": "pass"
+  },
+  {
+   "capture": "007",
+   "command": "see .qa-evidence/007",
+   "contract": "F3",
+   "expected": "list with free_tier bools",
+   "classification": "pass"
+  },
+  {
+   "capture": "008",
+   "command": "see .qa-evidence/008",
+   "contract": "F3",
+   "expected": "400 NO_API_KEY",
+   "classification": "pass"
+  },
+  {
+   "capture": "009",
+   "command": "see .qa-evidence/009",
+   "contract": "F3",
+   "expected": "404 unknown provider",
+   "classification": "pass"
+  },
+  {
+   "capture": "010",
+   "command": "see .qa-evidence/010",
+   "contract": "F4",
+   "expected": "400 unknown model",
+   "classification": "pass"
+  },
+  {
+   "capture": "011",
+   "command": "see .qa-evidence/011",
+   "contract": "F4",
+   "expected": "400 no key",
+   "classification": "pass"
+  },
+  {
+   "capture": "012",
+   "command": "see .qa-evidence/012",
+   "contract": "F4",
+   "expected": "200 saved",
+   "classification": "pass"
+  },
+  {
+   "capture": "013",
+   "command": "see .qa-evidence/013",
+   "contract": "F4",
+   "expected": "GET returns pref",
+   "classification": "pass"
+  },
+  {
+   "capture": "014",
+   "command": "see .qa-evidence/014",
+   "contract": "F5",
+   "expected": "400 PROTECTED_SECTION",
+   "classification": "pass"
+  },
+  {
+   "capture": "015",
+   "command": "see .qa-evidence/015",
+   "contract": "F5",
+   "expected": "400 UNSAFE_CONTENT",
+   "classification": "pass"
+  },
+  {
+   "capture": "016",
+   "command": "see .qa-evidence/016",
+   "contract": "F5",
+   "expected": "400 unknown section",
+   "classification": "pass"
+  },
+  {
+   "capture": "017",
+   "command": "see .qa-evidence/017",
+   "contract": "F5",
+   "expected": "400 >4000 chars",
+   "classification": "pass"
+  },
+  {
+   "capture": "018",
+   "command": "see .qa-evidence/018",
+   "contract": "F5",
+   "expected": "paraphrased bypass rejected (spec 5)",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "019",
+   "command": "see .qa-evidence/019",
+   "contract": "F5",
+   "expected": "preview saves nothing",
+   "classification": "pass"
+  },
+  {
+   "capture": "020",
+   "command": "see .qa-evidence/020",
+   "contract": "F5",
+   "expected": "201 v1",
+   "classification": "pass"
+  },
+  {
+   "capture": "021",
+   "command": "see .qa-evidence/021",
+   "contract": "F5",
+   "expected": "201 v2",
+   "classification": "pass"
+  },
+  {
+   "capture": "022",
+   "command": "see .qa-evidence/022",
+   "contract": "F5",
+   "expected": "history v2 active, v1",
+   "classification": "pass"
+  },
+  {
+   "capture": "023",
+   "command": "see .qa-evidence/023",
+   "contract": "F5",
+   "expected": "revert -> v3 copy",
+   "classification": "pass"
+  },
+  {
+   "capture": "024",
+   "command": "see .qa-evidence/024",
+   "contract": "F1",
+   "expected": "other user's version 404",
+   "classification": "pass"
+  },
+  {
+   "capture": "025",
+   "command": "see .qa-evidence/025",
+   "contract": "F5",
+   "expected": "missing version 404",
+   "classification": "pass"
+  },
+  {
+   "capture": "026",
+   "command": "see .qa-evidence/026",
+   "contract": "F7",
+   "expected": "non-int path 400",
+   "classification": "pass"
+  },
+  {
+   "capture": "027",
+   "command": "see .qa-evidence/027",
+   "contract": "F6",
+   "expected": "400 NO_MODEL_PREFERENCE",
+   "classification": "pass"
+  },
+  {
+   "capture": "028",
+   "command": "see .qa-evidence/028",
+   "contract": "F6",
+   "expected": "run uses own key/model/patch",
+   "classification": "pass"
+  },
+  {
+   "capture": "029",
+   "command": "see .qa-evidence/029",
+   "contract": "F1",
+   "expected": "other user sees base",
+   "classification": "pass"
+  },
+  {
+   "capture": "030",
+   "command": "see .qa-evidence/030",
+   "contract": "F7",
+   "expected": "malformed JSON 400 with meaningful message",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "031",
+   "command": "see .qa-evidence/031",
+   "contract": "F7",
+   "expected": "empty task 400",
+   "classification": "pass"
+  },
+  {
+   "capture": "032",
+   "command": "see .qa-evidence/032",
+   "contract": "F7",
+   "expected": "task >50000 400",
+   "classification": "pass"
+  },
+  {
+   "capture": "033",
+   "command": "see .qa-evidence/033",
+   "contract": "F7",
+   "expected": ">1MB 413",
+   "classification": "pass"
+  },
+  {
+   "capture": "034",
+   "command": "see .qa-evidence/034",
+   "contract": "F7 review candidate",
+   "expected": "malformed Content-Length 400",
+   "classification": "pass"
+  },
+  {
+   "capture": "035",
+   "command": "see .qa-evidence/035",
+   "contract": "F8",
+   "expected": "11th key save 429",
+   "classification": "pass"
+  },
+  {
+   "capture": "036",
+   "command": "see .qa-evidence/036",
+   "contract": "F8",
+   "expected": "per-user limit",
+   "classification": "pass"
+  },
+  {
+   "capture": "037",
+   "command": "see .qa-evidence/037",
+   "contract": "F10",
+   "expected": "body cid == header",
+   "classification": "pass"
+  },
+  {
+   "capture": "038",
+   "command": "see .qa-evidence/038",
+   "contract": "F10",
+   "expected": "valid inbound cid echoed",
+   "classification": "pass"
+  },
+  {
+   "capture": "039",
+   "command": "see .qa-evidence/039",
+   "contract": "F10",
+   "expected": "invalid inbound cid replaced",
+   "classification": "pass"
+  },
+  {
+   "capture": "040",
+   "command": "see .qa-evidence/040",
+   "contract": "F10",
+   "expected": "no key in log/db; audit fields",
+   "classification": "pass"
+  },
+  {
+   "capture": "041",
+   "command": "see .qa-evidence/041",
+   "contract": "F11",
+   "expected": "publish base v2",
+   "classification": "pass"
+  },
+  {
+   "capture": "042",
+   "command": "see .qa-evidence/042",
+   "contract": "F11",
+   "expected": "conflict flagged, base used",
+   "classification": "pass"
+  },
+  {
+   "capture": "043",
+   "command": "see .qa-evidence/043",
+   "contract": "F11",
+   "expected": "revert 409",
+   "classification": "pass"
+  },
+  {
+   "capture": "044",
+   "command": "see .qa-evidence/044",
+   "contract": "review candidate",
+   "expected": "setup",
+   "classification": "pass"
+  },
+  {
+   "capture": "045",
+   "command": "see .qa-evidence/045",
+   "contract": "review candidate",
+   "expected": "setup base v3",
+   "classification": "pass"
+  },
+  {
+   "capture": "046",
+   "command": "see .qa-evidence/046",
+   "contract": "review candidate",
+   "expected": "setup",
+   "classification": "pass"
+  },
+  {
+   "capture": "047",
+   "command": "see .qa-evidence/047",
+   "contract": "review candidate",
+   "expected": "revert 201",
+   "classification": "pass"
+  },
+  {
+   "capture": "048",
+   "command": "see .qa-evidence/048",
+   "contract": "review candidate",
+   "expected": "reverted v3 records current base 3",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "049",
+   "command": "see .qa-evidence/049",
+   "contract": "F12",
+   "expected": "bad base file exit 1",
+   "classification": "pass"
+  },
+  {
+   "capture": "050",
+   "command": "see .qa-evidence/050",
+   "contract": "F12",
+   "expected": "prod unsafe config exit 1",
+   "classification": "pass"
+  },
+  {
+   "capture": "051",
+   "command": "see .qa-evidence/051",
+   "contract": "F12",
+   "expected": "base unchanged",
+   "classification": "superseded"
+  },
+  {
+   "capture": "052",
+   "command": "see .qa-evidence/052",
+   "contract": "F12",
+   "expected": "base still 3",
+   "classification": "pass"
+  },
+  {
+   "capture": "053",
+   "command": "see .qa-evidence/053",
+   "contract": "F9",
+   "expected": "pytest on Postgres incl. concurrency",
+   "classification": "pass"
+  },
+  {
+   "capture": "054",
+   "command": "see .qa-evidence/054",
+   "contract": "review candidate (Postgres)",
+   "expected": "40-char cid execute 200",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "055",
+   "command": "see .qa-evidence/055",
+   "contract": "review candidate",
+   "expected": "replay of 054",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "056",
+   "command": "see .qa-evidence/056",
+   "contract": "review candidate",
+   "expected": "36-char cid boundary 200",
+   "classification": "pass"
+  },
+  {
+   "capture": "057",
+   "command": "see .qa-evidence/057",
+   "contract": "review candidate",
+   "expected": "403 model access != invalid key",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "058",
+   "command": "see .qa-evidence/058",
+   "contract": "review candidate",
+   "expected": "key stays Valid",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "059",
+   "command": "see .qa-evidence/059",
+   "contract": "review candidate",
+   "expected": "other model usable",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "060",
+   "command": "see .qa-evidence/060",
+   "contract": "replay setup",
+   "expected": "re-save key Valid",
+   "classification": "pass"
+  },
+  {
+   "capture": "061",
+   "command": "see .qa-evidence/061",
+   "contract": "replay of 057",
+   "expected": "same",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "062",
+   "command": "see .qa-evidence/062",
+   "contract": "replay of 058",
+   "expected": "same",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "063",
+   "command": "see .qa-evidence/063",
+   "contract": "replay of 018",
+   "expected": "bypass rejected; diff lines separate",
+   "classification": "product-defect"
+  },
+  {
+   "capture": "064",
+   "command": "see .qa-evidence/064",
+   "contract": "F5",
+   "expected": "bypass not persistable",
+   "classification": "product-defect"
+  }
+ ],
+ "limits": [
+  "capture 003 first attempt refused by recorder (sensitive intent); re-run with key in fixture file",
+  "probes 035 and 053 are single shell commands that loop or run a suite",
+  "several pre-planned charter probes were dispatched sequentially in one shell call (checkpoint chain intact)",
+  "no real Gemini/OpenAI execution; OpenAI path is a local mock",
+  "capture 018: fail",
+  "capture 030: fail-low (message 'Invalid request: 9.')",
+  "capture 034: pass (candidate not reproduced behind uvicorn)",
+  "capture 041: setup",
+  "capture 044: setup",
+  "capture 045: setup",
+  "capture 046: setup",
+  "capture 047: setup",
+  "capture 048: fail-low (records 2)",
+  "capture 051: superseded (body discarded; see 052)",
+  "capture 054: fail-high (500, cid null)",
+  "capture 055: fail-high (replay confirmed)",
+  "capture 056: pass (minimization)",
+  "capture 057: fail-high",
+  "capture 058: fail-high (flipped Invalid)",
+  "capture 059: fail-high (NO_VALID_KEY)",
+  "capture 060: setup",
+  "capture 061: fail-high (replay confirmed)",
+  "capture 062: fail-high (replay confirmed)",
+  "capture 063: fail (replay confirmed; diff joined)",
+  "capture 064: fail (201 persisted)"
+ ],
+ "revision": "sha256:a023c2aa98454c45"
+}

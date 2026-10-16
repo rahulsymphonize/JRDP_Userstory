@@ -1,0 +1,6 @@
+{
+  "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash qafix/b006.sh",
+  "observed": "PROVIDER=[combobox] \"Provider\": OpenAI STATUS=API key status: ⚪ Not Set\nevaluate: TypeError: Cannot read properties of undefined (reading 'checked')\n    at eval (eval at evaluate (:311:30), <anonymous>:1:125)\n    at eval (<anonymous>)\n    at UtilityScript.evaluate (<anonymous>:311:30)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\nMODEL_BOX=\nUsage: browse click <selector>\nPREF=\nRUN_ALERTS=Select a provider and model before running a task. NO_MODEL_PREFERENCE · ref 7f0ad0c6-11af-4146-a66a-20a5c7c87e1c\nScreenshot saved (viewport): /Users/rahul/llm-agent/.gstack/qa-reports/screenshots/b006-forbidden-model-run.png\nAFTER_STATUS=API key status: ⚪ Not Set\nScreenshot saved (viewport): /Users/rahul/llm-agent/.gstack/qa-reports/screenshots/b006-key-flipped-invalid.png\nCONSOLE_ERRORS=(no console errors)",
+  "hypothesis": "B-006 inconclusive: the B-004 reload reset the sidebar User ID to its default 'user1' (no key). Set User ID to qa-ui explicitly, then select OpenAI and repeat the forbidden-model run.",
+  "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qafix/b007.sh (fill User ID qa-ui + Enter, then b006 steps)"
+}

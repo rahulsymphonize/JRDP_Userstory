@@ -1,0 +1,30 @@
+{
+  "observationCapture": "005",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/openai",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-openai-bad.json"
+  ],
+  "observed": "{\"code\":\"INVALID_KEY\",\"message\":\"The API key was rejected by the provider.\",\"correlationId\":\"2fbcd2de-cef5-4258-bb76-ce2d2771a4ce\"}\nHTTP 422\n",
+  "hypothesis": "F2/F3: provider listing should still show openai Valid TEST after the failed replacement",
+  "nextCapture": "006",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "localhost:8100/api/v1/providers"
+  ]
+}

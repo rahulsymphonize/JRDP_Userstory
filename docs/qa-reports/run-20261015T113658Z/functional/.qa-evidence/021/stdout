@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": 400,
+    "message": "The requested combination of response modalities (TEXT) is not supported by the model. models/gemini-2.5-flash-preview-tts accepts the following combination of response modalities:\n* AUDIO\n",
+    "status": "INVALID_ARGUMENT"
+  }
+}
+
+HTTP 400
+['Valid']

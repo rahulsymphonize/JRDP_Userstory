@@ -1,0 +1,36 @@
+{
+  "observationCapture": "060",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-e",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/openai",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-openai-mock.json"
+  ],
+  "observed": "{\"provider_id\":\"openai\",\"key_status\":\"Valid\",\"key_last4\":\"TEST\"}\nHTTP 200\n",
+  "hypothesis": "replay of 057 (exact command): 403 again misread as INVALID_KEY",
+  "nextCapture": "061",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-e",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hello\"}"
+  ]
+}

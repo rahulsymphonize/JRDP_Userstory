@@ -1,0 +1,34 @@
+{
+  "observationCapture": "053",
+  "observationArgv": [
+    "env",
+    "TEST_DATABASE_URL=postgresql+psycopg://test@localhost:55432/agent_test",
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:warnings",
+    "tests"
+  ],
+  "observed": ".........                                                                [100%]\n9 passed in 0.85s\n",
+  "hypothesis": "review candidate (Postgres): execute with a valid 40-char X-Correlation-ID; expected 200; review predicts 500 from audit insert into varchar(36)",
+  "nextCapture": "054",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-pg",
+    "-H",
+    "content-type: application/json",
+    "-H",
+    "X-Correlation-ID: qa-trace-0000000000-0000000000-000000000",
+    "-X",
+    "POST",
+    "localhost:8101/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hello\"}"
+  ]
+}

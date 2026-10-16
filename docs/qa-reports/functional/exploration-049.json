@@ -1,0 +1,20 @@
+{
+  "observationCapture": "048",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-c",
+    "localhost:8100/api/v1/users/me/system-prompt/patches"
+  ],
+  "observed": "[{\"version\":3,\"base_version\":2,\"is_active\":true,\"created_at\":\"2026-10-15T11:16:21\",\"sections\":{\"Rules\":\"- Be brief.\"}},{\"version\":2,\"base_version\":3,\"is_active\":false,\"created_at\":\"2026-10-15T11:16:21\",\"sections\":{\"Rules\":\"- Be very brief.\"}},{\"version\":1,\"base_version\":2,\"is_active\":false,\"created_at\":\"2026-10-15T11:16:21\",\"sections\":{\"Rules\":\"- Be brief.\"}}]\nHTTP 200\n",
+  "hypothesis": "F12: publish-base with an empty section and an unknown protected name must exit non-zero and publish nothing",
+  "nextCapture": "049",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "env APP_ENV=development AUTH_MODE=dev KEKS=qa:l+ro2nVuB63ATHBIoN7DLuJRIVhOSWNVQvvoyGQEo4s= DATABASE_URL=sqlite:////private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/qa.db .venv/bin/python -m backend.manage publish-base /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/base_bad.json; echo EXIT=$?"
+  ]
+}

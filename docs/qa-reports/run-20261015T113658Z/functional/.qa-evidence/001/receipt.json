@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "id": "001",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-g",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/gemini",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/body-gemini-real.json"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/run-20261015T113658Z/functional/.qa-evidence/001/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:38:11.704Z",
+      "deadlineAt": "2026-10-15T11:41:31.704Z",
+      "budgetMs": 200000,
+      "observedAt": "2026-10-15T11:38:11.777Z",
+      "remainingMs": 199927,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:38:13.230Z",
+      "deadlineAt": "2026-10-15T11:41:31.704Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:38:11.749Z",
+  "completedAt": "2026-10-15T11:38:13.244Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "dbb387f1d833dfceca82ac18ce40135f4528034366aabdcabf56450613275eb1",
+    "bytes": 91
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "bd13b422beaa5732da6c53b0a062856c5f20febffbaf7d7752d312d71088525e",
+    "bytes": 74
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

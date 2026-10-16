@@ -1,0 +1,26 @@
+{
+  "observationCapture": "022",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "localhost:8100/api/v1/users/me/system-prompt/patches"
+  ],
+  "observed": "[{\"version\":2,\"base_version\":1,\"is_active\":true,\"created_at\":\"2026-10-15T11:15:11\",\"sections\":{\"Output Format\":\"Reply in YAML.\"}},{\"version\":1,\"base_version\":1,\"is_active\":false,\"created_at\":\"2026-10-15T11:15:11\",\"sections\":{\"Output Format\":\"Reply in JSON.\"}}]\nHTTP 200\n",
+  "hypothesis": "F5: revert to v1 creates v3 copying v1 (append-only)",
+  "nextCapture": "023",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches/1/revert"
+  ]
+}

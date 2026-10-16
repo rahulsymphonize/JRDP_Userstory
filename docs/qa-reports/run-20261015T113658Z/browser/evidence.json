@@ -1,0 +1,44 @@
+{
+  "revision": "sha256:a023c2aa98454c45",
+  "runtime": "bun 1.4.2",
+  "cwd": "/Users/rahul/llm-agent",
+  "limits": [
+    "B-001 inconclusive (ambiguous selector; stale console buffer from an earlier run)",
+    "contrast check ignores alpha; approximate",
+    "performance measured on localhost only"
+  ],
+  "evidence": [],
+  "learning": [
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/run-20261015T113658Z/browser/deadline.json -- bash qa2/b001.sh 2>&1 | grep -v QA_DEADLINE",
+      "hypothesis": "Inconclusive: selector 'summary:has-text(\"v1 ·\")' also matched v2's label 'base v1 · active', and console errors are stale entries from the earlier QA run's UI shutdown (11:27). Clear the console buffer and use the exact v1 label prefix.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qa2/b002.sh (console --clear; reload; same flow with summary:has-text(\"v1 · 2026\"))"
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/run-20261015T113658Z/browser/deadline.json -- bash qa2/b002.sh 2>&1 | grep -v QA_DEADLINE | cut -c1-400",
+      "hypothesis": "B8 accessibility: list interactive controls without an accessible name and walk Tab focus order on the Provider tab.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qa2/b003.sh (js unlabeled-controls scan; 14x Tab with activeElement labels; contrast of caption text)"
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/run-20261015T113658Z/browser/deadline.json -- bash qa2/b003.sh 2>&1 | grep -v QA_DEADLINE",
+      "hypothesis": "B9 performance: record navigation timings on a fresh load and time to first rendered tab content.",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash -c \"$B goto http://localhost:8601; wait networkidle; $B perf; time until tabs render\""
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/run-20261015T113658Z/browser/deadline.json -- bash -c \"goto :8601; wait until 3 tabs; $B perf\"",
+      "hypothesis": "R8 (review #8): with the UI pointed at a proxy that returns an HTML 502 page, does call() crash on r.json() and show a traceback instead of an error message?",
+      "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash -c \"$B console --clear; $B goto http://localhost:8602; sleep 6; count stException blocks; read exception text; read alerts; screenshot b005\""
+    },
+    {
+      "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/run-20261015T113658Z/browser/deadline.json -- bash -c \". qa2/blib.sh; $B console --clear; $B goto http://localhost:8602; sleep 6; echo EXCEPTIONS=...; echo EXC_TEXT=...; echo ALERTS=$(alerts); $B screenshot b005-html-502-proxy.png\" | grep -v QA_DEADLINE",
+      "hypothesis": "Exact replay of B-005 to confirm the traceback is deterministic.",
+      "nextCommand": "same command as observationCommand, screenshot b006"
+    }
+  ],
+  "verdict": {
+    "status": "inconclusive",
+    "open": [
+      "no evidence rows"
+    ]
+  }
+}

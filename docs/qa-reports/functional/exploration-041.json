@@ -1,0 +1,24 @@
+{
+  "observationCapture": "040",
+  "observationArgv": [
+    "python3",
+    "-I",
+    "-c",
+    "\nimport sqlite3\nneedles=[b'mockmockmockmock', b'qafakeqafake', b'qabadqabad']\nlog=open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/api.log','rb').read(); db=open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/qa.db','rb').read()\nprint('in_log', [n.decode() for n in needles if n in log]); print('in_db', [n.decode() for n in needles if n in db])\nc=sqlite3.connect('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/qa.db')\nprint('audit', c.execute('select user_id,provider_id,model_id,base_version,patch_version,tokens_in,tokens_out,status,length(correlation_id) from execution_audit').fetchall())\nprint('cred_cols', [r[1] for r in c.execute('pragma table_info(user_provider_credentials)')])"
+  ],
+  "observed": "in_log []\nin_db []\naudit [('qa-a', 'openai', 'mock-gpt-small', 1, 3, 151, 12, 'SUCCESS', 36)]\ncred_cols ['id', 'user_id', 'provider_id', 'encrypted_key', 'wrapped_dek', 'kek_id', 'key_last4', 'status', 'validated_at']\n",
+  "hypothesis": "F11: manage publish-base with a changed Output Format publishes base v2",
+  "nextCapture": "041",
+  "nextArgv": [
+    "env",
+    "APP_ENV=development",
+    "AUTH_MODE=dev",
+    "KEKS=qa:l+ro2nVuB63ATHBIoN7DLuJRIVhOSWNVQvvoyGQEo4s=",
+    "DATABASE_URL=sqlite:////private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/qa.db",
+    ".venv/bin/python",
+    "-m",
+    "backend.manage",
+    "publish-base",
+    "/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/base_v2.json"
+  ]
+}

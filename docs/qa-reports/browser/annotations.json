@@ -1,0 +1,9 @@
+{
+ "evidence": [],
+ "limits": [
+  "checkpoint 004 observed text filtered QA_DEADLINE receipt lines and screenshot line",
+  "B-005 and B-006 inconclusive (script assumptions: provider default and user-id reset after reload)",
+  "B-008 one of two rerun clicks timed out; final status read succeeded"
+ ],
+ "revision": "sha256:a023c2aa98454c45"
+}

@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "id": "036",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-rl2",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/openai",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-openai-bad.json"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/functional/.qa-evidence/036/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:15:48.286Z",
+      "deadlineAt": "2026-10-15T11:16:48.286Z",
+      "budgetMs": 60000,
+      "observedAt": "2026-10-15T11:15:48.287Z",
+      "remainingMs": 59999,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:15:48.299Z",
+      "deadlineAt": "2026-10-15T11:16:48.286Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:15:48.287Z",
+  "completedAt": "2026-10-15T11:15:48.300Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "fe55e1e6e4ceda3fb16f21a4231e6684465ce4ab893da8ad0ecdb309f201ee08",
+    "bytes": 13
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "c12ead4a3ea82ede1cd0592eed6db101e82ba6243dc476df753306ce0391adde",
+    "bytes": 9
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

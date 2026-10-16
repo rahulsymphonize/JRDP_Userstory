@@ -1,0 +1,28 @@
+{
+  "observationCapture": "037",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-D",
+    "-",
+    "-H",
+    "X-User-Id: qa-a",
+    "localhost:8100/api/v1/providers/nope/models"
+  ],
+  "observed": "HTTP/1.1 404 Not Found\r\ndate: Thu, 15 Oct 2026 11:15:55 GMT\r\nserver: uvicorn\r\ncontent-length: 114\r\ncontent-type: application/json\r\nx-correlation-id: b02436e3-3cb6-4afc-b52b-4c9941d5b87e\r\ncache-control: no-store\r\n\r\n{\"code\":\"PROVIDER_NOT_FOUND\",\"message\":\"Unknown provider.\",\"correlationId\":\"b02436e3-3cb6-4afc-b52b-4c9941d5b87e\"}",
+  "hypothesis": "F10: a valid inbound X-Correlation-ID is echoed back",
+  "nextCapture": "038",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-D",
+    "-",
+    "-o",
+    "/dev/null",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "X-Correlation-ID: qa-trace-0001",
+    "localhost:8100/api/v1/providers"
+  ]
+}

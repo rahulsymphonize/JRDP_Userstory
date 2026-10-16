@@ -1,0 +1,42 @@
+{
+  "observationCapture": "055",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-pg",
+    "-H",
+    "content-type: application/json",
+    "-H",
+    "X-Correlation-ID: qa-trace-0000000000-0000000000-000000000",
+    "-X",
+    "POST",
+    "localhost:8101/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hello\"}"
+  ],
+  "observed": "{\"code\":\"INTERNAL_ERROR\",\"message\":\"Something went wrong.\",\"correlationId\":null}\nHTTP 500\n",
+  "hypothesis": "minimize: same execute with a 36-char id succeeds (boundary)",
+  "nextCapture": "056",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-pg",
+    "-H",
+    "content-type: application/json",
+    "-H",
+    "X-Correlation-ID: qa-trace-00000000-0000000000-000000",
+    "-X",
+    "POST",
+    "localhost:8101/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hello\"}"
+  ]
+}

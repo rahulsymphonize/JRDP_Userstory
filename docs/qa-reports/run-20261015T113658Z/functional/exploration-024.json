@@ -1,0 +1,26 @@
+{
+  "observationCapture": "023",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/tok-rs-aud.txt",
+    "localhost:8102/api/v1/users/me/system-prompt"
+  ],
+  "observed": "{\"code\":\"UNAUTHENTICATED\",\"message\":\"Authentication required.\",\"correlationId\":\"4ae8a8de-5ff8-40c4-b940-bc1700823eb9\"}\nHTTP 401\n",
+  "hypothesis": "O1: wrong issuer -> 401",
+  "nextCapture": "024",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/tok-rs-iss.txt",
+    "localhost:8102/api/v1/users/me/system-prompt"
+  ]
+}

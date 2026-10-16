@@ -1,0 +1,36 @@
+{
+  "observationCapture": "011",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/model-preference",
+    "-d",
+    "{\"provider_id\":\"gemini\",\"model_id\":\"gemini-2.5-flash\"}"
+  ],
+  "observed": "{\"code\":\"NO_API_KEY\",\"message\":\"Add an API key for this provider first.\",\"correlationId\":\"ba5b858d-1949-4ce3-9a60-78c196077427\"}\nHTTP 400\n",
+  "hypothesis": "F4: valid preference saves 200",
+  "nextCapture": "012",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/model-preference",
+    "-d",
+    "{\"provider_id\":\"openai\",\"model_id\":\"mock-gpt-small\"}"
+  ]
+}

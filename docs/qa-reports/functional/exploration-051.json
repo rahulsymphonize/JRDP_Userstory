@@ -1,0 +1,22 @@
+{
+  "observationCapture": "050",
+  "observationArgv": [
+    "bash",
+    "-c",
+    "env -u KEKS APP_ENV=production AUTH_MODE=dev DATABASE_URL=sqlite:////private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/x.db .venv/bin/python -m backend.manage migrate; echo EXIT=$?"
+  ],
+  "observed": "EXIT=1\n",
+  "hypothesis": "F12: base version unchanged (still 3) after the rejected publish",
+  "nextCapture": "051",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-b",
+    "localhost:8100/api/v1/users/me/system-prompt",
+    "-o",
+    "/dev/null"
+  ]
+}

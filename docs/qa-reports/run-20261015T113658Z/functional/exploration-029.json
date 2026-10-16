@@ -1,0 +1,22 @@
+{
+  "observationCapture": "028",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/tok-es-ok.txt",
+    "localhost:8102/api/v1/users/me/system-prompt",
+    "-o",
+    "/dev/null"
+  ],
+  "observed": "\nHTTP 401\n",
+  "hypothesis": "O1: per-sub isolation: oidc-qa-user saves a patch; oidc-qa-other still sees base",
+  "nextCapture": "029",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "curl -s -o /dev/null -w 'patch %{http_code} ' -H @/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/tok-rs-ok.txt -H 'content-type: application/json' -X POST localhost:8102/api/v1/users/me/system-prompt/patches -d '{\"sections\":{\"Rules\":\"- QA rule\"}}'; curl -s -H @/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/tok-rs-other.txt localhost:8102/api/v1/users/me/system-prompt | python3 -c 'import json,sys; print(\"other_patch_version\", json.load(sys.stdin)[\"patch_version\"])'"
+  ]
+}

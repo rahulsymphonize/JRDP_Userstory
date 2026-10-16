@@ -1,0 +1,36 @@
+{
+  "observationCapture": "010",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/model-preference",
+    "-d",
+    "{\"provider_id\":\"openai\",\"model_id\":\"gpt-nonexistent\"}"
+  ],
+  "observed": "{\"code\":\"MODEL_UNAVAILABLE\",\"message\":\"The selected model is not available for this provider.\",\"correlationId\":\"e4c41067-32b4-465e-abc2-d85db1870870\"}\nHTTP 400\n",
+  "hypothesis": "F4: preference for a provider without a key must be 400 NO_API_KEY",
+  "nextCapture": "011",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/model-preference",
+    "-d",
+    "{\"provider_id\":\"gemini\",\"model_id\":\"gemini-2.5-flash\"}"
+  ]
+}

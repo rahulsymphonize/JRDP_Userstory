@@ -1,0 +1,6 @@
+{
+  "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash -c \". qafix/blib.sh; kill 12242; sleep 1; $B reload; sleep 6; echo ALERTS=$(alerts); echo EXCEPTIONS=$(txt 'document.querySelectorAll(\\\"[data-testid=stException]\\\").length'); $B screenshot --viewport .gstack/qa-reports/screenshots/b010-backend-down.png; echo CONSOLE_ERRORS=$($B console --errors | grep -v 'EXTERNAL CONTENT')\"",
+  "observed": "ALERTS=The backend is not reachable. | The backend is not reachable.\nEXCEPTIONS=0\nScreenshot saved (viewport): .gstack/qa-reports/screenshots/b010-backend-down.png\nCONSOLE_ERRORS=(no console errors)",
+  "hypothesis": "B5 success path not yet observed in this invocation: as qa-ui, re-save the key, choose mock-gpt-small, run a task and expect output with the caption showing provider/model/base version; then qa-b sees its own (no key) state.",
+  "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qafix/b011.sh"
+}

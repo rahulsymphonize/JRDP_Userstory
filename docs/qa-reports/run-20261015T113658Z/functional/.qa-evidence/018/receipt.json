@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "id": "018",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-g4' localhost:8100/api/v1/providers | python3 -c 'import json,sys; print([p for p in json.load(sys.stdin) if p[\"id\"]==\"gemini\"][0])'"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/run-20261015T113658Z/functional/.qa-evidence/018/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:39:38.295Z",
+      "deadlineAt": "2026-10-15T11:42:58.295Z",
+      "budgetMs": 200000,
+      "observedAt": "2026-10-15T11:39:38.296Z",
+      "remainingMs": 199999,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:39:38.329Z",
+      "deadlineAt": "2026-10-15T11:42:58.295Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:39:38.296Z",
+  "completedAt": "2026-10-15T11:39:38.330Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "77dd2cfc764bbfa77125ed26e9bc6abebe038a133a0220ebb7b21544241387d2",
+    "bytes": 92
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "4c406e066c7edcd5e56874b53a0fa5d6ac7fc00b5c48df9c60e46607868d87ea",
+    "bytes": 88
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

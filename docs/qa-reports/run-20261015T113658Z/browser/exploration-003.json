@@ -1,0 +1,6 @@
+{
+ "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/run-20261015T113658Z/browser/deadline.json -- bash qa2/b003.sh 2>&1 | grep -v QA_DEADLINE",
+ "observed": "A11Y={\"visibleControls\":19,\"unnamed\":[],\"captionContrastOnWhite\":\"12.53\",\"lang\":\"en\"}\nTAB_ORDER= | Deploy | Main menu | Provider & API Key\n\nSystem Pro | Provider & API Key | Provider | API key | Show password | Replace key | Delete key | Free-tier models only | Model | Use this model | Skip to main content\n\nUser ID  | Skip to main content\nCONSOLE_ERRORS=(no console errors)",
+ "hypothesis": "B9 performance: record navigation timings on a fresh load and time to first rendered tab content.",
+ "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash -c \"$B goto http://localhost:8601; wait networkidle; $B perf; time until tabs render\""
+}

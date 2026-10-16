@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "id": "035",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "bash",
+    "-c",
+    "for i in $(seq 1 11); do curl -s -o /dev/null -w '%{http_code} ' -H 'X-User-Id: qa-rl' -H 'content-type: application/json' -X PUT localhost:8100/api/v1/users/me/credentials/openai -d @/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-openai-bad.json; done; echo"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/functional/.qa-evidence/035/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:15:48.099Z",
+      "deadlineAt": "2026-10-15T11:16:48.099Z",
+      "budgetMs": 60000,
+      "observedAt": "2026-10-15T11:15:48.100Z",
+      "remainingMs": 59999,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:15:48.241Z",
+      "deadlineAt": "2026-10-15T11:16:48.099Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:15:48.100Z",
+  "completedAt": "2026-10-15T11:15:48.243Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "c1086d890835aa44980b383d4765a225f4f9685412c9a71359e6e55bf36ba309",
+    "bytes": 49
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "32f6cddb85d1d429aa3519404c549f7823d97077b63e25ba5c85e09bea83e4bc",
+    "bytes": 45
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

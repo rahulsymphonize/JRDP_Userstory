@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "id": "005",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/gemini-hdr.txt",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/gen-body.json"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/run-20261015T113658Z/functional/.qa-evidence/005/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:38:33.190Z",
+      "deadlineAt": "2026-10-15T11:41:53.190Z",
+      "budgetMs": 200000,
+      "observedAt": "2026-10-15T11:38:33.194Z",
+      "remainingMs": 199996,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:38:33.912Z",
+      "deadlineAt": "2026-10-15T11:41:53.190Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:38:33.193Z",
+  "completedAt": "2026-10-15T11:38:33.927Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "b6a3ed61a814ddce0fe2b450270f0811cff19080b830467309728ec064a95d7b",
+    "bytes": 393
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "f881ce02afe19a80a313dd7f647a999a573f5533f025a95e2d338d71ac454238",
+    "bytes": 369
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

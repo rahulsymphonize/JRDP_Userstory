@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "id": "021",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "bash",
+    "-c",
+    "curl -s -w '\\nHTTP %{http_code}\\n' -H @/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/gemini-hdr.txt -H 'content-type: application/json' -X POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent -d @/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/gen-hi.json | head -c 600; curl -s -H 'X-User-Id: qa-g4' localhost:8100/api/v1/providers | python3 -c 'import json,sys; print([p[\"key_status\"] for p in json.load(sys.stdin) if p[\"id\"]==\"gemini\"])'"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/run-20261015T113658Z/functional/.qa-evidence/021/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:39:55.308Z",
+      "deadlineAt": "2026-10-15T11:43:15.308Z",
+      "budgetMs": 200000,
+      "observedAt": "2026-10-15T11:39:55.309Z",
+      "remainingMs": 199999,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:39:56.127Z",
+      "deadlineAt": "2026-10-15T11:43:15.308Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:39:55.309Z",
+  "completedAt": "2026-10-15T11:39:56.128Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "12d6d1cddb93264c32987a014fb8a7c86abc6106c21f0aeb153c5e91ecb8be4e",
+    "bytes": 328
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "d5c7f9933d2e8f2348aef347f7050223db8f426170e1e3651b98b9683110ab09",
+    "bytes": 301
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

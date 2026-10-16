@@ -1,0 +1,36 @@
+{
+  "observationCapture": "031",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"\"}"
+  ],
+  "observed": "{\"code\":\"VALIDATION_ERROR\",\"message\":\"Invalid request: task.\",\"correlationId\":\"53766927-3678-4bae-a4fe-df20eb402de1\"}\nHTTP 400\n",
+  "hypothesis": "F7: task over 50000 chars is 400",
+  "nextCapture": "032",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-task-50001.json"
+  ]
+}

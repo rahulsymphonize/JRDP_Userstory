@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "id": "035",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "bash",
+    "-c",
+    "\ncurl -s -w ' HTTP %{http_code}' -H 'X-User-Id: qa-r' -H 'content-type: application/json' -X POST localhost:8100/api/v1/agent/execute -d '{\"task\":\"hi\"}' > /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/race.out & pid=$!\nsleep 2; echo \"save key B: $(curl -s -H 'X-User-Id: qa-r' -H 'content-type: application/json' -X PUT localhost:8100/api/v1/users/me/credentials/openai -d @/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/body-mock-B.json)\"\nwait $pid; echo \"in-flight execute: $(cat /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/race.out)\"\necho \"status after: $(curl -s -H 'X-User-Id: qa-r' localhost:8100/api/v1/providers | python3 -c 'import json,sys; print([p for p in json.load(sys.stdin) if p[\"id\"]==\"openai\"][0])')\""
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/run-20261015T113658Z/functional/.qa-evidence/035/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:43:02.976Z",
+      "deadlineAt": "2026-10-15T11:46:22.976Z",
+      "budgetMs": 200000,
+      "observedAt": "2026-10-15T11:43:02.977Z",
+      "remainingMs": 199999,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:43:09.052Z",
+      "deadlineAt": "2026-10-15T11:46:22.976Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:43:02.977Z",
+  "completedAt": "2026-10-15T11:43:09.053Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "8b8e2bc8b9b7555c1d89e29eaaf8cef2ff7146b05b12187b8a009271938eca7f",
+    "bytes": 362
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "d71d567ff5f47da582c96c31b1d2b975e0b58e775679eb6f5ae9e6ad6fdcba1e",
+    "bytes": 332
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

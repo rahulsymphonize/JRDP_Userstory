@@ -1,0 +1,25 @@
+{
+  "observationCapture": "039",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-D",
+    "-",
+    "-o",
+    "/dev/null",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "X-Correlation-ID: <script>bad id</script>",
+    "localhost:8100/api/v1/providers"
+  ],
+  "observed": "HTTP/1.1 200 OK\r\ndate: Thu, 15 Oct 2026 11:15:55 GMT\r\nserver: uvicorn\r\ncontent-length: 315\r\ncontent-type: application/json\r\nx-correlation-id: 49d053f3-8776-42ab-95c4-56f0bd33a060\r\ncache-control: no-store\r\n\r\n",
+  "hypothesis": "F10: synthetic key body never in API log or raw DB bytes; audit rows carry versions but no key",
+  "nextCapture": "040",
+  "nextArgv": [
+    "python3",
+    "-I",
+    "-c",
+    "\nimport sqlite3\nneedles=[b'mockmockmockmock', b'qafakeqafake', b'qabadqabad']\nlog=open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/api.log','rb').read(); db=open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/qa.db','rb').read()\nprint('in_log', [n.decode() for n in needles if n in log]); print('in_db', [n.decode() for n in needles if n in db])\nc=sqlite3.connect('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/qa.db')\nprint('audit', c.execute('select user_id,provider_id,model_id,base_version,patch_version,tokens_in,tokens_out,status,length(correlation_id) from execution_audit').fetchall())\nprint('cred_cols', [r[1] for r in c.execute('pragma table_info(user_provider_credentials)')])"
+  ]
+}

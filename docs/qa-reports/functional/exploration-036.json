@@ -1,0 +1,28 @@
+{
+  "observationCapture": "035",
+  "observationArgv": [
+    "bash",
+    "-c",
+    "for i in $(seq 1 11); do curl -s -o /dev/null -w '%{http_code} ' -H 'X-User-Id: qa-rl' -H 'content-type: application/json' -X PUT localhost:8100/api/v1/users/me/credentials/openai -d @/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-openai-bad.json; done; echo"
+  ],
+  "observed": "422 422 422 422 422 422 422 422 422 422 429 \n",
+  "hypothesis": "F8: limit is per user - a different user (qa-rl2) is not throttled",
+  "nextCapture": "036",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-rl2",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/openai",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-openai-bad.json"
+  ]
+}

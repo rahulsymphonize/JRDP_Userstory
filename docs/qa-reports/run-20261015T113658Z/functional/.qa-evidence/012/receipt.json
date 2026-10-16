@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "id": "012",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-g",
+    "-X",
+    "DELETE",
+    "localhost:8100/api/v1/users/me/system-prompt/patches"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/run-20261015T113658Z/functional/.qa-evidence/012/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:39:11.190Z",
+      "deadlineAt": "2026-10-15T11:42:31.190Z",
+      "budgetMs": 200000,
+      "observedAt": "2026-10-15T11:39:11.192Z",
+      "remainingMs": 199998,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:39:11.205Z",
+      "deadlineAt": "2026-10-15T11:42:31.190Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:39:11.191Z",
+  "completedAt": "2026-10-15T11:39:11.206Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "a087e81b0235a3c1d8fe849730c7c0b7338ffebaca6caf97aaad9e19e2bf6c7e",
+    "bytes": 13
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "ce5160732537495c19ec06dc34ff9b20fe246b7e5ba0e5c579285a8db26a5bb5",
+    "bytes": 9
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

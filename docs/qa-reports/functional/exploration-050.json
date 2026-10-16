@@ -1,0 +1,16 @@
+{
+  "observationCapture": "049",
+  "observationArgv": [
+    "bash",
+    "-c",
+    "env APP_ENV=development AUTH_MODE=dev KEKS=qa:l+ro2nVuB63ATHBIoN7DLuJRIVhOSWNVQvvoyGQEo4s= DATABASE_URL=sqlite:////private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/qa.db .venv/bin/python -m backend.manage publish-base /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/base_bad.json; echo EXIT=$?"
+  ],
+  "observed": "EXIT=1\n",
+  "hypothesis": "F12: production with dev auth, sqlite and no KEKS must refuse to start",
+  "nextCapture": "050",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "env -u KEKS APP_ENV=production AUTH_MODE=dev DATABASE_URL=sqlite:////private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/x.db .venv/bin/python -m backend.manage migrate; echo EXIT=$?"
+  ]
+}

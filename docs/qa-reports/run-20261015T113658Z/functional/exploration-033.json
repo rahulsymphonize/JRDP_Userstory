@@ -1,0 +1,16 @@
+{
+  "observationCapture": "032",
+  "observationArgv": [
+    "bash",
+    "-c",
+    "\ns=$(date +%s); curl -s -w ' HTTP %{http_code}' -H 'X-User-Id: qa-t' -H 'content-type: application/json' -X POST localhost:8100/api/v1/agent/execute -d '{\"task\":\"hi\"}' > /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/hang.out & pid=$!\nsleep 5; curl -s -o /dev/null -w 'readyz during hang: %{http_code} in %{time_total}s\\n' localhost:8100/readyz\nwait $pid; echo \"execute result: $(cat /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/hang.out) after $(( $(date +%s) - s ))s\"\npython3 -I -c \"import sqlite3; print('audit', sqlite3.connect('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/main.db').execute(\\\"select model_id,status,latency_ms from execution_audit where user_id='qa-t'\\\").fetchall())\""
+  ],
+  "observed": "readyz during hang: 200 in 0.003131s\nexecute result: {\"code\":\"PROVIDER_UNAVAILABLE\",\"message\":\"The provider is unavailable. Try again later.\",\"correlationId\":\"0734e6b3-0344-4aec-9d07-4fd28083a8ce\"} HTTP 502 after 120s\naudit [('mock-gpt-hang', 'PROVIDER_UNAVAILABLE', 120003)]\n",
+  "hypothesis": "R2: in-flight call with key A gets 401 after 6 s; key B saved at 2 s must stay Valid (review predicts Invalid)",
+  "nextCapture": "033",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "\ncurl -s -w ' HTTP %{http_code}' -H 'X-User-Id: qa-r' -H 'content-type: application/json' -X POST localhost:8100/api/v1/agent/execute -d '{\"task\":\"hi\"}' > /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/race.out & pid=$!\nsleep 2; echo \"save key B: $(curl -s -H 'X-User-Id: qa-r' -H 'content-type: application/json' -X PUT localhost:8100/api/v1/users/me/credentials/openai -d @/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/body-mock-B.json)\"\nwait $pid; echo \"in-flight execute: $(cat /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/race.out)\"\necho \"status after: $(curl -s -H 'X-User-Id: qa-r' localhost:8100/api/v1/providers | python3 -c 'import json,sys; print([p for p in json.load(sys.stdin) if p[\"id\"]==\"openai\"][0])')\""
+  ]
+}

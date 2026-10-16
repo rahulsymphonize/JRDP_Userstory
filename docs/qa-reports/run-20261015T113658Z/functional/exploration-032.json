@@ -1,0 +1,22 @@
+{
+  "observationCapture": "031",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/tok-es-ok.txt",
+    "localhost:8103/api/v1/users/me/system-prompt",
+    "-o",
+    "/dev/null"
+  ],
+  "observed": "\nHTTP 200\n",
+  "hypothesis": "T1: execute on a model that never answers; expect 502 PROVIDER_UNAVAILABLE after the 120 s read timeout, server responsive meanwhile, audit row written",
+  "nextCapture": "032",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "\ns=$(date +%s); curl -s -w ' HTTP %{http_code}' -H 'X-User-Id: qa-t' -H 'content-type: application/json' -X POST localhost:8100/api/v1/agent/execute -d '{\"task\":\"hi\"}' > /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/hang.out & pid=$!\nsleep 5; curl -s -o /dev/null -w 'readyz during hang: %{http_code} in %{time_total}s\\n' localhost:8100/readyz\nwait $pid; echo \"execute result: $(cat /private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/hang.out) after $(( $(date +%s) - s ))s\"\npython3 -I -c \"import sqlite3; print('audit', sqlite3.connect('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/main.db').execute(\\\"select model_id,status,latency_ms from execution_audit where user_id='qa-t'\\\").fetchall())\""
+  ]
+}

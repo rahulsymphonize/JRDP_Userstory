@@ -1,0 +1,6 @@
+{
+  "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash -c \"$B viewport 375x812; sleep 3; $B screenshot --viewport .gstack/qa-reports/screenshots/b009-mobile.png; echo OVERFLOW_X=$($B js 'document.documentElement.scrollWidth > window.innerWidth'); echo SIDEBAR_VISIBLE=$($B js 'getComputedStyle(document.querySelector(\\\"[data-testid=stSidebar]\\\")).transform'); $B viewport 1400x1000\"",
+  "observed": "Screenshot saved (viewport): .gstack/qa-reports/screenshots/b009-mobile.png\nOVERFLOW_X=false\nSIDEBAR_VISIBLE=matrix(1, 0, 0, 1, -300, 0)",
+  "hypothesis": "B6: with the owned QA API (pid 12242, :8100) stopped, the UI should show 'The backend is not reachable.' instead of crashing.",
+  "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash -c \"kill 12242; sleep 1; $B reload; sleep 6; read alerts + exception blocks; screenshot b010\" (API restarted afterwards, outside the probe)"
+}

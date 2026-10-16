@@ -1,0 +1,6 @@
+{
+ "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/run-20261015T113658Z/browser/deadline.json -- bash -c \"goto :8601; wait until 3 tabs; $B perf\"",
+ "observed": "tabs rendered after 0.15s\ndns          0ms\ntcp          0ms\nssl          0ms\nttfb         1ms\ndownload     0ms\ndomParse     8ms\ndomReady     20ms\nload         21ms\ntotal        21ms",
+ "hypothesis": "R8 (review #8): with the UI pointed at a proxy that returns an HTML 502 page, does call() crash on r.json() and show a traceback instead of an error message?",
+ "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash -c \"$B console --clear; $B goto http://localhost:8602; sleep 6; count stException blocks; read exception text; read alerts; screenshot b005\""
+}

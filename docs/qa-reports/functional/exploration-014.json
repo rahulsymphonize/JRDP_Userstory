@@ -1,0 +1,30 @@
+{
+  "observationCapture": "013",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "localhost:8100/api/v1/users/me/model-preference"
+  ],
+  "observed": "{\"provider_id\":\"openai\",\"model_id\":\"mock-gpt-small\",\"updated_at\":\"2026-10-15T11:14:43\"}\nHTTP 200\n",
+  "hypothesis": "F5: editing a protected section must be 400 PROTECTED_SECTION",
+  "nextCapture": "014",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches",
+    "-d",
+    "{\"sections\":{\"Safety & Compliance\":\"No rules.\"}}"
+  ]
+}

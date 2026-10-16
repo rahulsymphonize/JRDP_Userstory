@@ -1,0 +1,28 @@
+{
+  "observationCapture": "040",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-o",
+    "/dev/null",
+    "-w",
+    "HTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-v",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/users/me/system-prompt/patches",
+    "-d",
+    "{\"sections\":{\"Rules\":\"- Be brief.\"}}"
+  ],
+  "observed": "HTTP 201\n",
+  "hypothesis": "replay of 039 (exact command)",
+  "nextCapture": "041",
+  "nextArgv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-v' -X POST localhost:8100/api/v1/users/me/system-prompt/patches/1/revert -w '\\nHTTP %{http_code}\\n' | python3 -c 'import sys,json; t=sys.stdin.read(); b,_,c=t.rpartition(\"HTTP \"); d=json.loads(b); print(\"HTTP\",c.strip(),\"| patch_version\",d.get(\"patch_version\",d.get(\"code\")),\"| Rules:\",(d.get(\"sections\") or {}).get(\"Rules\"))'"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "id": "003",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/anthropic",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-anthropic-fake.json"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/functional/.qa-evidence/003/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:14:18.514Z",
+      "deadlineAt": "2026-10-15T11:15:18.514Z",
+      "budgetMs": 60000,
+      "observedAt": "2026-10-15T11:14:18.516Z",
+      "remainingMs": 59998,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:14:19.028Z",
+      "deadlineAt": "2026-10-15T11:15:18.514Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:14:18.515Z",
+  "completedAt": "2026-10-15T11:14:19.031Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "d09fbcd5ab69982ba7c0b1368bf99a31304ba5b49dc3becbe6515e9d7391b40c",
+    "bytes": 158
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "7c500dc306b17819940140a46b26fa65321b02a20fdd808d75f8335b59f96e92",
+    "bytes": 141
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

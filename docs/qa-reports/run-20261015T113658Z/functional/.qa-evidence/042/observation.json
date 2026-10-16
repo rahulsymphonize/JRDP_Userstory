@@ -1,0 +1,1 @@
+"baseline (sequential, 200 req): median 2.4 ms, p95 6.8 ms\nfilled 10500 users in 17.8s; status codes [400]\nafter fill (sequential, 200 req): median 4.6 ms, p95 6.5 ms\n"

@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "id": "016",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "python3",
+    "-I",
+    "-c",
+    "\nimport sqlite3; c=sqlite3.connect('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/main.db')\nfor r in c.execute(\"select model_id,base_version,patch_version,tokens_in,tokens_out,status from execution_audit where user_id='qa-g' order by id\"): print(r)\nprint('key bytes in db:', b'KEYPFX' in open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/main.db','rb').read(), '| in api log:', b'KEYPFX' in open('/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/api.log','rb').read())"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/run-20261015T113658Z/functional/.qa-evidence/016/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:39:29.132Z",
+      "deadlineAt": "2026-10-15T11:42:49.132Z",
+      "budgetMs": 200000,
+      "observedAt": "2026-10-15T11:39:29.133Z",
+      "remainingMs": 199999,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:39:29.201Z",
+      "deadlineAt": "2026-10-15T11:42:49.132Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:39:29.133Z",
+  "completedAt": "2026-10-15T11:39:29.201Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "eabb42ec666c6f2add30bbda95e98a5563695501a35d2c439c55de75cbf13341",
+    "bytes": 365
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "e51306f3607a5260ce0d99d422897edaa92b07802111b8bffb2828d0cb1f629a",
+    "bytes": 355
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

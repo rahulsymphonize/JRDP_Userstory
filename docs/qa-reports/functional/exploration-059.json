@@ -1,0 +1,30 @@
+{
+  "observationCapture": "058",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-e",
+    "localhost:8100/api/v1/providers"
+  ],
+  "observed": "[{\"id\":\"anthropic\",\"name\":\"Anthropic (Claude)\",\"key_status\":\"Not Set\",\"key_last4\":null},{\"id\":\"gemini\",\"name\":\"Google (Gemini)\",\"key_status\":\"Not Set\",\"key_last4\":null},{\"id\":\"mistral\",\"name\":\"Mistral\",\"key_status\":\"Not Set\",\"key_last4\":null},{\"id\":\"openai\",\"name\":\"OpenAI\",\"key_status\":\"Invalid\",\"key_last4\":\"TEST\"}]\nHTTP 200\n",
+  "hypothesis": "observe: switching to a model the key CAN use is now blocked?",
+  "nextCapture": "059",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-e",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/model-preference",
+    "-d",
+    "{\"provider_id\":\"openai\",\"model_id\":\"mock-gpt-small\"}"
+  ]
+}

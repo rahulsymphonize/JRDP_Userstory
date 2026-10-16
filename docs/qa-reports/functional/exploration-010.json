@@ -1,0 +1,30 @@
+{
+  "observationCapture": "009",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "localhost:8100/api/v1/providers/nope/models"
+  ],
+  "observed": "{\"code\":\"PROVIDER_NOT_FOUND\",\"message\":\"Unknown provider.\",\"correlationId\":\"a1f75454-7471-4787-bc6f-5689b07257ad\"}\nHTTP 404\n",
+  "hypothesis": "F4: preference for a model not in the provider list must be 400 MODEL_UNAVAILABLE",
+  "nextCapture": "010",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/model-preference",
+    "-d",
+    "{\"provider_id\":\"openai\",\"model_id\":\"gpt-nonexistent\"}"
+  ]
+}

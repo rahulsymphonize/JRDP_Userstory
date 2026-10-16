@@ -1,0 +1,6 @@
+{
+  "observationCommand": "bun ~/.claude/skills/gstack/bin/gstack-qa-deadline run .gstack/qa-reports/browser/deadline.json -- bash -c \"$B reload; sleep 5; bash qafix/b003.sh\" 2>&1 | grep -vE 'Screenshot saved|QA_DEADLINE'",
+  "observed": "DIFF_START\n--- current\n+++ proposed\n@@ -13,4 +13,4 @@\n Respond in plain text.\n \n ## Behaviour\n-Be professional and neutral in tone. Keep answers under 300 words unless the task requires more.+Be concise.\nDIFF_END\nCONSOLE_ERRORS=(no console errors)",
+  "hypothesis": "B5: functional 057-062 showed a 403 on one model marks the whole key Invalid. Check what the user sees in the UI when running a task on the forbidden model, and the key status afterwards.",
+  "nextCommand": "bun gstack-qa-deadline run deadline.json -- bash qafix/b005.sh (Provider tab: untick free-only, Use this model = mock-gpt-forbidden; Run tab: run 'hello'; read alerts; Provider tab: read key status; screenshot b005)"
+}

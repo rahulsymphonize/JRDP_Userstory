@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "id": "004",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-g",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"Name two benefits of code review.\"}"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/run-20261015T113658Z/functional/.qa-evidence/004/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:38:22.115Z",
+      "deadlineAt": "2026-10-15T11:41:42.115Z",
+      "budgetMs": 200000,
+      "observedAt": "2026-10-15T11:38:22.117Z",
+      "remainingMs": 199998,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:38:22.867Z",
+      "deadlineAt": "2026-10-15T11:41:42.115Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:38:22.116Z",
+  "completedAt": "2026-10-15T11:38:22.868Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "8f98d06da89bcec78f530b9c1be9ca831e34f24ca56105c2106108c4408bc29e",
+    "bytes": 159
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "e0ca8a6e96fae2ce98cc7a959407945b1a9b5acc31089791b6b3c0aac3a4b75c",
+    "bytes": 142
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

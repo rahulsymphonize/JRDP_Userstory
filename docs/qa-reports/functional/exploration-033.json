@@ -1,0 +1,36 @@
+{
+  "observationCapture": "032",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-task-50001.json"
+  ],
+  "observed": "{\"code\":\"VALIDATION_ERROR\",\"message\":\"Invalid request: task.\",\"correlationId\":\"f5ad5dd9-6137-40ad-98bc-5abbc69c2643\"}\nHTTP 400\n",
+  "hypothesis": "F7: body over 1MB is 413 PAYLOAD_TOO_LARGE",
+  "nextCapture": "033",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "--data-binary",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/body-1mb.json"
+  ]
+}

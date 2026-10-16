@@ -1,0 +1,28 @@
+{
+  "observationCapture": "030",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/tok-es-ok.txt",
+    "localhost:8102/api/v1/users/me/system-prompt",
+    "-o",
+    "/dev/null"
+  ],
+  "observed": "\nHTTP 401\n",
+  "hypothesis": "minimize: same ES256 token against :8103 (OIDC_ALGORITHMS without space) -> 200 shows the space is the cause",
+  "nextCapture": "031",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/tok-es-ok.txt",
+    "localhost:8103/api/v1/users/me/system-prompt",
+    "-o",
+    "/dev/null"
+  ]
+}

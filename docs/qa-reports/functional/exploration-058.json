@@ -1,0 +1,30 @@
+{
+  "observationCapture": "057",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-e",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hello\"}"
+  ],
+  "observed": "{\"code\":\"INVALID_KEY\",\"message\":\"The API key was rejected by the provider.\",\"correlationId\":\"ba334c12-2501-46ee-916a-1a3390ccf696\"}\nHTTP 422\n",
+  "hypothesis": "observe: is the stored openai key now marked Invalid (locking out all models)?",
+  "nextCapture": "058",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-e",
+    "localhost:8100/api/v1/providers"
+  ]
+}

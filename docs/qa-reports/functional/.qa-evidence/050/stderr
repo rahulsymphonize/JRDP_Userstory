@@ -1,0 +1,4 @@
+Refusing to start:
+  - KEKS is not set (generate one with: python -m backend.manage gen-kek)
+  - production requires AUTH_MODE=oidc
+  - production requires a PostgreSQL DATABASE_URL

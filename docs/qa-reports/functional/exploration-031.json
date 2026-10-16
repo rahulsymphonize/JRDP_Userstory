@@ -1,0 +1,36 @@
+{
+  "observationCapture": "030",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\": oops"
+  ],
+  "observed": "{\"code\":\"VALIDATION_ERROR\",\"message\":\"Invalid request: 9.\",\"correlationId\":\"0c210581-e6cb-4107-b843-eb536ba24d5f\"}\nHTTP 400\n",
+  "hypothesis": "F7: empty task is 400",
+  "nextCapture": "031",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"\"}"
+  ]
+}

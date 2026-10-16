@@ -1,0 +1,28 @@
+{
+  "observationCapture": "001",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "localhost:8100/api/v1/providers"
+  ],
+  "observed": "{\"code\":\"UNAUTHENTICATED\",\"message\":\"Authentication required.\",\"correlationId\":\"50e84fb2-4eab-4110-a427-4f0f99b7095b\"}\nHTTP 401\n",
+  "hypothesis": "F2: invalid key format must be rejected 400 before any provider call",
+  "nextCapture": "002",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/credentials/openai",
+    "-d",
+    "{\"api_key\":\"not-a-key\"}"
+  ]
+}

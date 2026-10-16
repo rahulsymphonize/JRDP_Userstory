@@ -1,0 +1,9 @@
+HTTP/1.1 404 Not Found
+date: Thu, 15 Oct 2026 11:15:55 GMT
+server: uvicorn
+content-length: 114
+content-type: application/json
+x-correlation-id: b02436e3-3cb6-4afc-b52b-4c9941d5b87e
+cache-control: no-store
+
+{"code":"PROVIDER_NOT_FOUND","message":"Unknown provider.","correlationId":"b02436e3-3cb6-4afc-b52b-4c9941d5b87e"}

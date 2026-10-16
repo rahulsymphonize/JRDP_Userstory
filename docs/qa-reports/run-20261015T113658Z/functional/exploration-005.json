@@ -1,0 +1,36 @@
+{
+  "observationCapture": "004",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-g",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"Name two benefits of code review.\"}"
+  ],
+  "observed": "{\"code\":\"MODEL_UNAVAILABLE\",\"message\":\"The selected model is not available.\",\"correlationId\":\"b250becc-654b-418c-a198-4a2e6f5e13da\"}\nHTTP 404\n",
+  "hypothesis": "diagnose 004: same model directly on Google; is it a real 404 or a mislabelled error?",
+  "nextCapture": "005",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/gemini-hdr.txt",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent",
+    "-d",
+    "@/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qa2/gen-body.json"
+  ]
+}

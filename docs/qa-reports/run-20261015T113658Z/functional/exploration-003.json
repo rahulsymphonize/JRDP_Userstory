@@ -1,0 +1,26 @@
+{
+  "observationCapture": "002",
+  "observationArgv": [
+    "bash",
+    "-c",
+    "curl -s -H 'X-User-Id: qa-g' localhost:8100/api/v1/providers/gemini/models | python3 -c 'import json,sys; m=json.load(sys.stdin); f=[x[\"id\"] for x in m if x[\"free_tier\"]]; print(len(m),\"models\",len(f),\"free\"); print(f)'"
+  ],
+  "observed": "46 models 16 free\n['gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-2.5-flash-preview-tts', 'gemini-2.5-pro', 'gemini-3-flash-preview', 'gemini-3.1-flash-lite', 'gemini-3.1-flash-tts-preview', 'gemini-3.5-flash-lite', 'gemini-3.5-transcribe', 'gemini-3.6-flash', 'gemini-3.8-flash', 'gemini-3.8-flash-lite-tts', 'gemini-3.8-flash-tts', 'gemini-robotics-er-2-preview', 'gemma-4-26b-a4b-it', 'gemma-4-31b-it']\n",
+  "hypothesis": "G2 setup: select free model gemini-2.5-flash-lite",
+  "nextCapture": "003",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-g",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "PUT",
+    "localhost:8100/api/v1/users/me/model-preference",
+    "-d",
+    "{\"provider_id\":\"gemini\",\"model_id\":\"gemini-2.5-flash-lite\"}"
+  ]
+}

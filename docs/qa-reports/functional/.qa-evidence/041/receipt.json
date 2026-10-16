@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "id": "041",
+  "cwd": "/Users/rahul/llm-agent",
+  "argv": [
+    "env",
+    "APP_ENV=development",
+    "AUTH_MODE=dev",
+    "KEKS=qa:l+ro2nVuB63ATHBIoN7DLuJRIVhOSWNVQvvoyGQEo4s=",
+    "DATABASE_URL=sqlite:////private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/qa.db",
+    ".venv/bin/python",
+    "-m",
+    "backend.manage",
+    "publish-base",
+    "/private/tmp/claude-502/-Users-rahul/399405af-1b10-40e3-9a2b-2b9a09dac00c/scratchpad/qafix/base_v2.json"
+  ],
+  "deadline": "/Users/rahul/llm-agent/.gstack/qa-reports/functional/.qa-evidence/041/deadline.json",
+  "timing": [
+    {
+      "guard": "qa-deadline",
+      "event": "started",
+      "version": 1,
+      "startedAt": "2026-10-15T11:16:10.770Z",
+      "deadlineAt": "2026-10-15T11:17:10.770Z",
+      "budgetMs": 60000,
+      "observedAt": "2026-10-15T11:16:10.771Z",
+      "remainingMs": 59999,
+      "expired": false
+    },
+    {
+      "guard": "qa-deadline",
+      "event": "finished",
+      "observedAt": "2026-10-15T11:16:11.030Z",
+      "deadlineAt": "2026-10-15T11:17:10.770Z",
+      "timedOut": false,
+      "exitCode": 0
+    }
+  ],
+  "startedAt": "2026-10-15T11:16:10.771Z",
+  "completedAt": "2026-10-15T11:16:11.031Z",
+  "exitCode": 0,
+  "signal": null,
+  "status": "complete",
+  "observation": {
+    "sha256": "f20b00e3c1de7c6ee1fea1a1ba44befcf8427f63aad90fc0250e68cf50753af5",
+    "bytes": 35
+  },
+  "publicOutput": true,
+  "stdout": {
+    "sha256": "1578201482d8a76b716da7ce4b23a15f585b33be95b5baa7d33cb34ce7743508",
+    "bytes": 31
+  },
+  "stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

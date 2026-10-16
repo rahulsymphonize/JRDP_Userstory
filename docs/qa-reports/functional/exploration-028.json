@@ -1,0 +1,36 @@
+{
+  "observationCapture": "027",
+  "observationArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-b",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hello\"}"
+  ],
+  "observed": "{\"code\":\"NO_MODEL_PREFERENCE\",\"message\":\"Select a provider and model before running a task.\",\"correlationId\":\"3005a6db-1507-4bde-bb73-ee422c52922a\"}\nHTTP 400\n",
+  "hypothesis": "F6: qa-a execute uses qa-a key, mock-gpt-small and patch v3 (Output Format Reply in JSON.)",
+  "nextCapture": "028",
+  "nextArgv": [
+    "curl",
+    "-s",
+    "-w",
+    "\\nHTTP %{http_code}\\n",
+    "-H",
+    "X-User-Id: qa-a",
+    "-H",
+    "content-type: application/json",
+    "-X",
+    "POST",
+    "localhost:8100/api/v1/agent/execute",
+    "-d",
+    "{\"task\":\"hello\"}"
+  ]
+}

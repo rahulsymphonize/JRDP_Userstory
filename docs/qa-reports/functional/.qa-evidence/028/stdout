@@ -1,0 +1,2 @@
+{"output":"**Mock answer** to: hello\n\nOutput Format in effect: `Reply in JSON.`","provider_id":"openai","model_id":"mock-gpt-small","base_version":1,"patch_version":3,"prompt_conflict":false,"tokens_in":151,"tokens_out":12,"correlation_id":"df5f20ae-ef25-4ed7-852f-abbefb608e81"}
+HTTP 200
