@@ -115,6 +115,8 @@ with tab_prompt:
                 name + (" 🔒" if protected else ""), text, disabled=protected, key=f"sec_{user}_{name}_{eff['patch_version']}"
             )
         editable = {k: v for k, v in edits.items() if k not in eff["protected_sections"]}
+        if not eff["is_admin"]:
+            st.caption(f"{', '.join(eff['protected_sections'])}: managed by an admin, not shown.")
 
         c1, c2 = st.columns(2)
         if c1.button("Preview changes"):
@@ -142,6 +144,13 @@ with tab_prompt:
             call("DELETE", "/users/me/system-prompt/patches")
             st.session_state["clear_confirm"] = True
             st.rerun()
+        if len(hist) > 1:
+            vs = [h["version"] for h in hist]
+            d1, d2 = st.columns(2)
+            a, b = d1.selectbox("Compare", vs, index=1), d2.selectbox("with", vs, index=0)
+            d = call("GET", "/users/me/system-prompt/patches/diff", params={"a": a, "b": b})
+            if d:
+                st.code(d["diff"] or "No differences.", language="diff")
         for h in hist:
             with st.expander(f"v{h['version']} · {h['created_at'][:19].replace('T', ' ')} · base v{h['base_version']}" + (" · active" if h["is_active"] else "")):
                 for name, text in h["sections"].items():
@@ -151,6 +160,22 @@ with tab_prompt:
                     if call("POST", f"/users/me/system-prompt/patches/{h['version']}/revert"):
                         st.session_state["clear_confirm"] = True
                         st.rerun()
+
+        if eff["is_admin"]:
+            st.divider()
+            st.subheader("Admin")
+            base = call("GET", "/admin/base-prompt")
+            if base:
+                new = {n: st.text_area(f"{n} (base)", base["sections"][n], key=f"adm_{n}_{base['version']}")
+                       for n in base["protected"]}
+                if st.button("Publish base prompt"):
+                    if call("PUT", "/admin/base-prompt", json={"sections": new}):
+                        st.rerun()
+            cid = st.text_input("Trace a run by correlation ID")
+            if cid.strip():
+                rows = call("GET", f"/admin/audit/{cid.strip()}")
+                if rows:
+                    st.json(rows)
 
 # ---------- Execution ----------
 with tab_run:

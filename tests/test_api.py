@@ -8,6 +8,7 @@ import time
 os.environ.update(
     APP_ENV="development",
     AUTH_MODE="dev",
+    ADMIN_USERS="adm,reg-f3",
     DATABASE_URL=os.environ.get("TEST_DATABASE_URL", f"sqlite:///{tempfile.mkdtemp()}/test.db"),
     KEKS="k2:" + base64.b64encode(b"2" * 32).decode() + ",k1:" + base64.b64encode(b"1" * 32).decode(),
 )
@@ -109,7 +110,7 @@ def test_end_to_end():
                   json={"provider_id": "openai", "model_id": "nope"}).json()["code"] == "MODEL_UNAVAILABLE"
 
     # per-user patches stay isolated
-    base = u1.get("/api/v1/users/me/system-prompt").json()
+    base = client("adm").get("/api/v1/users/me/system-prompt").json()  # admin sees the full prompt
     assert base["patch_version"] is None
     prev = u2.post("/api/v1/users/me/system-prompt/preview", json={"sections": {"Output Format": "Reply in JSON."}}).json()
     assert "+Reply in JSON." in prev["diff"]

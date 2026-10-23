@@ -2,7 +2,7 @@
 from functools import lru_cache
 
 import jwt
-from fastapi import Header
+from fastapi import Depends, Header
 
 from backend import config
 from backend.errors import AppError
@@ -30,6 +30,10 @@ def verify(token):
     return sub
 
 
+def is_admin(user):
+    return user in config.ADMIN_USERS
+
+
 def current_user(authorization: str = Header(None), x_user_id: str = Header(None)):
     if config.AUTH_MODE == "dev":  # config.validate() forbids this in production
         if x_user_id and x_user_id.strip() and len(x_user_id) <= 255:
@@ -39,3 +43,9 @@ def current_user(authorization: str = Header(None), x_user_id: str = Header(None
     if scheme.lower() != "bearer" or not token:
         raise AppError(401, "UNAUTHENTICATED", "Authentication required.")
     return verify(token.strip())
+
+
+def require_admin(user=Depends(current_user)):
+    if not is_admin(user):
+        raise AppError(403, "FORBIDDEN", "Unauthorized access.")
+    return user

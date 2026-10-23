@@ -17,7 +17,7 @@ from sqlalchemy.sql import func
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from backend import config, crypto, db, logs, prompts, providers
-from backend.auth import current_user
+from backend.auth import current_user, is_admin, require_admin
 from backend.errors import AppError
 
 log = logging.getLogger("llm_agent")
@@ -317,20 +317,29 @@ class SectionsIn(BaseModel):
     sections: dict[str, str] = Field(max_length=20)
 
 
+def _visible(eff, user):
+    admin = is_admin(user)
+    return {**(eff if admin else prompts.user_view(eff)), "is_admin": admin}
+
+
 @app.get("/api/v1/users/me/system-prompt")
 def get_system_prompt(user=Depends(current_user)):
     with db.engine.connect() as conn:
-        return prompts.effective(conn, user)
+        return _visible(prompts.effective(conn, user), user)
 
 
 @app.post("/api/v1/users/me/system-prompt/preview")
 def preview(body: SectionsIn, user=Depends(current_user)):
     with db.engine.connect() as conn:
         base = prompts.current_base(conn)
-        current = prompts.effective(conn, user)["prompt"]
+        eff = prompts.effective(conn, user)
         window = _user_window(conn, user)
     patched = prompts.apply_patch(base, prompts.build_patch(base, body.sections, window))
-    resolved = prompts.render(patched, base["protected"])
+    if is_admin(user):
+        current, resolved = eff["prompt"], prompts.render(patched, base["protected"])
+    else:  # protected text stays out of the response
+        current = prompts.user_view(eff)["prompt"]
+        resolved = prompts.render({k: v for k, v in patched.items() if k not in base["protected"]})
     return {"current": current, "resolved": resolved, "diff": prompts.diff(current, resolved)}
 
 
@@ -342,7 +351,7 @@ def apply_patch(body: SectionsIn, user=Depends(current_user)):
         version = prompts.save_patch(conn, user, base["version"], patch)
         result = prompts.effective(conn, user)
     log.info("prompt patch applied", extra={"fields": {"user": user, "version": version}})
-    return result
+    return _visible(result, user)
 
 
 @app.get("/api/v1/users/me/system-prompt/patches")
@@ -365,6 +374,21 @@ def patch_history(user=Depends(current_user)):
     ]
 
 
+@app.get("/api/v1/users/me/system-prompt/patches/diff")
+def patch_diff(a: int, b: int, user=Depends(current_user)):
+    """Unified diff of the editable sections between two of the caller's saved versions."""
+    p = db.patches.c
+    with db.engine.connect() as conn:
+        base = prompts.current_base(conn)
+        rows = {r.version: r.patch_content for r in conn.execute(
+            select(p.version, p.patch_content).where(p.user_id == user, p.version.in_([a, b])))}
+    if a not in rows or b not in rows:
+        raise AppError(404, "NOT_FOUND", "That prompt version does not exist.")
+    text = lambda v: prompts.render({  # noqa: E731
+        k: rows[v][k]["to"] if k in rows[v] else s for k, s in base["sections"].items() if k not in base["protected"]})
+    return {"diff": prompts.diff(text(a), text(b), f"v{a}", f"v{b}")}
+
+
 @app.post("/api/v1/users/me/system-prompt/patches/{version}/revert", status_code=201)
 def revert(version: int, user=Depends(current_user)):
     p = db.patches.c
@@ -383,7 +407,7 @@ def revert(version: int, user=Depends(current_user)):
         new_version = prompts.save_patch(conn, user, base["version"], patch)
         result = prompts.effective(conn, user)
     log.info("prompt patch reverted", extra={"fields": {"user": user, "from": version, "version": new_version}})
-    return result
+    return _visible(result, user)
 
 
 @app.delete("/api/v1/users/me/system-prompt/patches")
@@ -392,7 +416,39 @@ def reset(user=Depends(current_user)):
         prompts.reset(conn, user)
         result = prompts.effective(conn, user)
     log.info("prompt reset to base", extra={"fields": {"user": user}})
-    return result
+    return _visible(result, user)
+
+
+# ---------- Admin ----------
+
+@app.get("/api/v1/admin/base-prompt")
+def admin_base_prompt(admin=Depends(require_admin)):
+    with db.engine.connect() as conn:
+        return prompts.current_base(conn)
+
+
+@app.put("/api/v1/admin/base-prompt")
+def admin_publish_base(body: SectionsIn, admin=Depends(require_admin)):
+    """Publish a new base version with the given sections replaced. Users whose patch no longer fits are flagged."""
+    with db.engine.begin() as conn:
+        base = prompts.current_base(conn)
+        if any(k not in base["sections"] for k in body.sections) or not all(v.strip() for v in body.sections.values()):
+            raise AppError(400, "VALIDATION_ERROR", "Unknown section or empty text.")
+        version = prompts.publish_base(conn, {**base["sections"], **body.sections}, base["protected"])
+    log.info("base prompt published", extra={"fields": {"admin": admin, "version": version}})
+    return {"base_version": version}
+
+
+@app.get("/api/v1/admin/audit/{correlation_id}")
+def admin_audit(correlation_id: str, admin=Depends(require_admin)):
+    """Trace one run by the correlationId its response carried: who, which prompt versions, outcome."""
+    with db.engine.connect() as conn:
+        rows = conn.execute(
+            select(db.audit).where(db.audit.c.correlation_id == correlation_id).order_by(db.audit.c.id)
+        ).mappings().all()
+    if not rows:
+        raise AppError(404, "NOT_FOUND", "No run has that correlation ID.")
+    return [dict(r) for r in rows]
 
 
 # ---------- Execution ----------
