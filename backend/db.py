@@ -80,7 +80,7 @@ audit = Table(
     Column("tokens_out", Integer),
     Column("latency_ms", Integer),
     Column("status", String(32), nullable=False),
-    Column("correlation_id", String(64)),  # matches the 8-64 char ids the API accepts
+    Column("correlation_id", String(64), index=True),  # matches the 8-64 char ids the API accepts
     Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
 )
 

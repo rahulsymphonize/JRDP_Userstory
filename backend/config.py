@@ -17,6 +17,7 @@ OIDC_JWKS_URL = _env("OIDC_JWKS_URL")
 OIDC_ALGORITHMS = [a.strip() for a in _env("OIDC_ALGORITHMS", "RS256,ES256").split(",") if a.strip()]
 # Key-encryption keys: "id:base64key,id:base64key". First entry encrypts new data; all decrypt.
 KEKS = _env("KEKS", "")
+ADMIN_USERS = {u.strip() for u in _env("ADMIN_USERS", "").split(",") if u.strip()}  # user ids (OIDC `sub`)
 LOG_LEVEL = _env("LOG_LEVEL", "INFO")
 DB_POOL_SIZE = int(_env("DB_POOL_SIZE", "10"))
 THREADPOOL_SIZE = int(_env("THREADPOOL_SIZE", "100"))  # concurrent blocking provider calls per worker
@@ -34,6 +35,13 @@ def validate():
         errors.append("AUTH_MODE=oidc needs OIDC_ISSUER, OIDC_AUDIENCE and OIDC_JWKS_URL")
     if not KEKS:
         errors.append("KEKS is not set (generate one with: python -m backend.manage gen-kek)")
+    else:
+        from backend import crypto  # local import: crypto imports config
+
+        try:
+            crypto._keks()
+        except Exception:
+            errors.append("KEKS must look like id:base64key (32 bytes), e.g. k1:<output of gen-kek>")
     if ENV == "production":
         if AUTH_MODE != "oidc":
             errors.append("production requires AUTH_MODE=oidc")
