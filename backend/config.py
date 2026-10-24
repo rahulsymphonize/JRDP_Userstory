@@ -1,5 +1,6 @@
 """Settings from environment. Production refuses to boot with an unsafe configuration."""
 import os
+import re
 import sys
 
 
@@ -10,6 +11,8 @@ def _env(name, default=None):
 
 ENV = _env("APP_ENV", "development")  # development | production
 DATABASE_URL = _env("DATABASE_URL", "sqlite:///./data/agent.db")
+# hosted Postgres (Neon, Heroku...) hands out postgres:// URLs; SQLAlchemy needs the psycopg driver named
+DATABASE_URL = re.sub(r"^postgres(ql)?://", "postgresql+psycopg://", DATABASE_URL)
 AUTH_MODE = _env("AUTH_MODE", "dev" if ENV != "production" else "oidc")  # oidc | dev
 OIDC_ISSUER = _env("OIDC_ISSUER")
 OIDC_AUDIENCE = _env("OIDC_AUDIENCE")
