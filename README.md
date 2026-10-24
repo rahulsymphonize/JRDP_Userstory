@@ -3,21 +3,30 @@
 Bring-your-own-key LLM agent (OpenAI, Anthropic, Gemini, Mistral) with per-user system prompt patches.
 FastAPI + PostgreSQL backend, minimal Streamlit UI.
 
+This application lets each user connect their own OpenAI, Anthropic, Gemini or Mistral API key (stored with envelope encryption, never shown again), pick any model that key can use, and run prompts through one common interface. Every user gets a fixed, protected base prompt (Role, Safety & Compliance) that an admin controls, plus a personal patch to the editable sections (Rules, Output Format, Behaviour) with validation, diffs, versioning and revert. Unsafe edits are rejected on save, and answers that leak the protected instructions are withheld, so teams can let people tailor an assistant to their own work without being able to switch off the guardrails. Every run is audited with a correlation ID, which makes it suited to internal AI assistants, bring-your-own-key tools, provider comparison and prompt experimentation.
+
+## Quick start
+
+Windows Command Prompt (cmd). Needs [uv](https://docs.astral.sh/uv/) (`winget install --id astral-sh.uv`) and Git. It fetches Python 3.12 and the dependencies on the first run.
+
+    git clone https://github.com/rahulsymphonize/JRDP_Userstory.git
+    cd JRDP_Userstory
+    start.cmd
+
+Then open http://localhost:8501 (UI). The API is on http://localhost:8000, with docs at `/docs`. Press Ctrl+C to stop both (if the API keeps running, close the window). This mode uses SQLite and a dev user ID, so there is nothing to configure. Sign in as user ID `admin` to see the admin tools; any other ID is a normal user.
+
 ## Run
-
-Local dev (SQLite, dev auth via `X-User-Id`, no setup needed):
-
-    ./start.sh                     # API :8000 (docs at /docs), UI :8501
 
 Production-shaped stack:
 
-    cp .env.example .env           # fill in KEKS, OIDC_*, POSTGRES_PASSWORD
+    copy .env.example .env         & rem fill in KEKS, OIDC_*, POSTGRES_PASSWORD, ADMIN_USERS
     docker compose up --build      # db -> migrate -> api + ui
 
 Tests:
 
-    .venv/bin/python -m pytest -q tests
-    TEST_DATABASE_URL=postgresql+psycopg://user@host/db .venv/bin/python -m pytest -q tests   # also runs the concurrency test
+    .venv\Scripts\python -m pytest -q tests
+    set TEST_DATABASE_URL=postgresql+psycopg://user@host/db
+    .venv\Scripts\python -m pytest -q tests      & rem also runs the concurrency test
 
 ## Deploying
 
@@ -54,6 +63,11 @@ With `APP_ENV=production` the API will not start unless OIDC auth, PostgreSQL an
 - `frontend/app.py`: Streamlit UI
 
 ## Prompt safety
+
+Protected text is admin-only: users never receive it from the API. Admins are the user IDs in `ADMIN_USERS`
+(comma-separated OIDC `sub` values). They can view and publish the protected sections (`GET/PUT /api/v1/admin/base-prompt`)
+and trace a run by correlation ID (`GET /api/v1/admin/audit/{id}`). Users can diff any two of their saved versions
+(`GET /api/v1/users/me/system-prompt/patches/diff?a=1&b=2`).
 
 Users can edit Rules, Output Format and Behaviour, never the protected sections (Role, Safety & Compliance).
 Three layers keep a user's edits from switching the protected rules off:

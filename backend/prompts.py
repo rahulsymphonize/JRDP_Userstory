@@ -150,10 +150,16 @@ def effective(conn, user_id):
     }
 
 
-def diff(old, new):
+def user_view(eff):
+    """What a non-admin may see: protected section text is never sent to them."""
+    sections = {k: v for k, v in eff["sections"].items() if k not in eff["protected_sections"]}
+    return {**eff, "sections": sections, "prompt": render(sections)}
+
+
+def diff(old, new, old_label="current", new_label="proposed"):
     # trailing newline so the last changed line doesn't merge its - and + halves
     return "".join(difflib.unified_diff(
-        (old + "\n").splitlines(keepends=True), (new + "\n").splitlines(keepends=True), "current", "proposed"
+        (old + "\n").splitlines(keepends=True), (new + "\n").splitlines(keepends=True), old_label, new_label
     ))
 
 
