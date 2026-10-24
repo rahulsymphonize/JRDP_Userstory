@@ -4,13 +4,24 @@ import os
 import httpx
 import streamlit as st
 
-API = os.environ.get("LLM_AGENT_API", "http://localhost:8000/api/v1")
+
+def _setting(name, default):
+    """Environment first, then Streamlit secrets (how Streamlit Community Cloud passes settings)."""
+    if name in os.environ:
+        return os.environ[name]
+    try:
+        return st.secrets.get(name, default)
+    except FileNotFoundError:  # no secrets.toml anywhere
+        return default
+
+
+API = _setting("LLM_AGENT_API", "http://localhost:8000/api/v1")
 
 st.set_page_config(page_title="Multi-Provider LLM Agent", layout="wide")
 
 # Production: paste an OIDC access token from your IdP. Dev (AUTH_MODE=dev): any user id.
 # ponytail: no OAuth redirect flow; add one (e.g. st.login) when this UI is user-facing
-if os.environ.get("LLM_AGENT_AUTH", "dev") == "dev":
+if _setting("LLM_AGENT_AUTH", "dev") == "dev":
     user = st.sidebar.text_input("User ID (dev)", value="user1", help="Switch users to see per-user isolation.")
     auth_headers = {"X-User-Id": user}
 else:
