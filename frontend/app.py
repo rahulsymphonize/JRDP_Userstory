@@ -24,8 +24,9 @@ def call(method, path, quiet=False, **kw):
     """Returns JSON, or None after showing the API's error message (or, with quiet, keeping it in last_error)."""
     try:
         r = httpx.request(method, API + path, headers=auth_headers, timeout=150, **kw)
-    except httpx.HTTPError:
-        st.error("The backend is not reachable.")
+    except httpx.HTTPError as e:
+        # naming the URL and error makes a wrong LLM_AGENT_API visible on a hosted deploy
+        st.error(f"The backend is not reachable.  \n`{API}` · {type(e).__name__}")
         st.stop()  # nothing else on the page can work; one message is enough
     try:
         body = r.json()

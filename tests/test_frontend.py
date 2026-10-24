@@ -39,4 +39,6 @@ def test_backend_down_shows_one_message(monkeypatch):  # BR-6
     monkeypatch.setenv("LLM_AGENT_API", "http://127.0.0.1:9/api/v1")  # nothing listens on port 9
     at = AppTest.from_file(APP, default_timeout=30).run()
     assert not at.exception
-    assert [e.value for e in at.error] == ["The backend is not reachable."]
+    assert len(at.error) == 1
+    assert at.error[0].value.startswith("The backend is not reachable.")
+    assert "http://127.0.0.1:9/api/v1" in at.error[0].value
