@@ -10,7 +10,7 @@ from contextlib import asynccontextmanager
 import anyio.to_thread
 from fastapi import Depends, FastAPI, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, SecretStr
 from sqlalchemy import delete, select, text, update
 from sqlalchemy.sql import func
@@ -211,12 +211,6 @@ def _user_window(conn, user_id):
 
 
 # ---------- health ----------
-
-@app.get("/", include_in_schema=False)
-def root():
-    # the bare URL is what people open first; send them to the API docs where those are enabled
-    return RedirectResponse("/docs") if _docs else {"status": "ok"}
-
 
 @app.get("/healthz", include_in_schema=False)
 def healthz():

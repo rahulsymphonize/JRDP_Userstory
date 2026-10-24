@@ -40,6 +40,11 @@ Tests:
 With `APP_ENV=production` the API will not start unless OIDC auth, PostgreSQL and `KEKS` are configured.
 `/docs` is disabled in production.
 
+**Single app (Vercel):** `asgi.py` serves the API and the Streamlit UI from one process and one URL: API
+routes first, the UI at `/`. `pyproject.toml` points Vercel at it. Set `LLM_AGENT_API` to the deployment's own
+`https://<host>/api/v1`. On Vercel the UI's WebSocket closes at the function's max duration (300s on Hobby);
+Streamlit reconnects, but widget state can reset if the reconnect lands on another instance.
+
 ## Operations
 
 - **Change the base prompt:** edit `backend/base_prompt.json` and deploy, or run
@@ -60,6 +65,7 @@ With `APP_ENV=production` the API will not start unless OIDC auth, PostgreSQL an
 - `backend/auth.py`: OIDC JWT verification via JWKS (`sub` = user id)
 - `backend/db.py` + `backend/migrations/`: schema and Alembic migrations
 - `backend/manage.py`: deploy-time commands
+- `asgi.py`: API + UI as one ASGI app (the Vercel entrypoint)
 - `frontend/app.py`: Streamlit UI
 
 ## Prompt safety

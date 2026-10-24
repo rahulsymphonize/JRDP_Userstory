@@ -2,7 +2,7 @@
 name = "jrdp-userstory"
 version = "0.1.0"
 requires-python = ">=3.12"
-# keep in step with requirements.txt (used by the Dockerfile)
+# keep in step with requirements.txt and frontend/requirements.txt (used by the Dockerfiles)
 dependencies = [
     "fastapi==0.143.1",
     "uvicorn==0.54.0",
@@ -12,7 +12,9 @@ dependencies = [
     "alembic==1.20.0",
     "psycopg[binary]==3.3.6",
     "pyjwt[crypto]==2.15.1",
+    "streamlit==1.66.0",
+    "websockets==17.3",  # WebSocket transport for the Streamlit UI on Vercel
 ]
 
 [tool.vercel]
-entrypoint = "backend.main:app"
+entrypoint = "asgi:app"
