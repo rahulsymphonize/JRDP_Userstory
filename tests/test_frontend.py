@@ -42,3 +42,16 @@ def test_backend_down_shows_one_message(monkeypatch):  # BR-6
     assert len(at.error) == 1
     assert at.error[0].value.startswith("The backend is not reachable.")
     assert "http://127.0.0.1:9/api/v1" in at.error[0].value
+
+
+def test_oidc_mode_asks_to_sign_in_before_calling_the_api(monkeypatch):
+    monkeypatch.setenv("LLM_AGENT_AUTH", "oidc")
+    monkeypatch.setenv("LLM_AGENT_API", "http://127.0.0.1:9/api/v1")  # never reached before sign-in
+    at = AppTest.from_file(APP, default_timeout=30)
+    at.secrets["auth"] = {"redirect_uri": "http://localhost:8501/oauth2callback", "cookie_secret": "x" * 32,
+                          "client_id": "c", "client_secret": "s", "expose_tokens": "id",
+                          "server_metadata_url": "https://idp.example/.well-known/openid-configuration"}
+    at.run()
+    assert not at.exception
+    assert not at.error
+    assert [b.label for b in at.button] == ["Sign in"]

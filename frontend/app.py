@@ -19,11 +19,31 @@ API = _setting("LLM_AGENT_API", "http://localhost:8000/api/v1")
 
 st.set_page_config(page_title="Multi-Provider LLM Agent", layout="wide")
 
-# Production: paste an OIDC access token from your IdP. Dev (AUTH_MODE=dev): any user id.
-# ponytail: no OAuth redirect flow; add one (e.g. st.login) when this UI is user-facing
+def _login_configured():
+    """True when an [auth] section exists for st.login (secrets.toml, or passed in by asgi.py)."""
+    try:
+        return "auth" in st.secrets
+    except FileNotFoundError:
+        return False
+
+
+# Dev (AUTH_MODE=dev): any user id. OIDC: sign in with st.login and send the ID token to the API;
+# without an [auth] config, fall back to pasting a token from the IdP.
+LOGIN = _setting("LLM_AGENT_AUTH", "dev") != "dev" and _login_configured()
 if _setting("LLM_AGENT_AUTH", "dev") == "dev":
     user = st.sidebar.text_input("User ID (dev)", value="user1", help="Switch users to see per-user isolation.")
     auth_headers = {"X-User-Id": user}
+elif LOGIN:
+    if not st.user.get("is_logged_in"):
+        st.title("Multi-Provider LLM Agent")
+        st.write("Sign in to manage your API keys, system prompt and runs.")
+        st.button("Sign in", type="primary", on_click=st.login)
+        st.stop()
+    user = st.user.tokens["id"]
+    st.sidebar.write(f"Signed in as **{st.user.get('email') or st.user.get('name') or 'you'}**")
+    st.sidebar.caption(f"User ID: `{st.user.get('sub')}`")
+    st.sidebar.button("Sign out", on_click=st.logout)
+    auth_headers = {"Authorization": f"Bearer {user}"}
 else:
     user = st.sidebar.text_input("Access token", type="password")
     auth_headers = {"Authorization": f"Bearer {user}"}
@@ -43,8 +63,12 @@ def call(method, path, quiet=False, **kw):
         body = r.json()
     except ValueError:  # e.g. an HTML error page from a proxy in front of the API
         body = {"message": "The service returned an unexpected response.", "code": f"HTTP_{r.status_code}"}
+    if r.status_code == 401 and LOGIN:  # the ID token from sign-in has expired
+        st.warning("Your session has expired. Sign in again to continue.")
+        st.button("Sign in again", on_click=st.logout)
+        st.stop()
     if r.status_code >= 400:
-        msg = f"{body.get('message', 'Request failed.')}  \n`{body.get('code')}` · ref {body.get('correlationId')}"
+        msg =f"{body.get('message', 'Request failed.')}  \n`{body.get('code')}` · ref {body.get('correlationId')}"
         if quiet:
             st.session_state["last_error"] = msg
         else:

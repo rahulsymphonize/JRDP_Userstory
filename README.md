@@ -45,6 +45,12 @@ routes first, the UI at `/`. `pyproject.toml` points Vercel at it. Set `LLM_AGEN
 `https://<host>/api/v1`. On Vercel the UI's WebSocket closes at the function's max duration (300s on Hobby);
 Streamlit reconnects, but widget state can reset if the reconnect lands on another instance.
 
+**Sign-in (OIDC):** with `LLM_AGENT_AUTH=oidc` and `OIDC_CLIENT_ID` set, `asgi.py` turns on `st.login`. Users sign
+in with the IdP and the UI sends their ID token to the API, so `OIDC_AUDIENCE` must equal the client id.
+Also set `OIDC_CLIENT_SECRET`, `AUTH_COOKIE_SECRET` (random, 32+ chars) and `PUBLIC_URL` (the app's base URL).
+At the IdP, allow `<PUBLIC_URL>/oauth2callback` as both a callback URL and a logout URL. `ADMIN_USERS` takes
+`sub` values; each user's id is shown in the sidebar after sign-in.
+
 ## Operations
 
 - **Change the base prompt:** edit `backend/base_prompt.json` and deploy, or run
