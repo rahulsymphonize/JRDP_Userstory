@@ -13,6 +13,8 @@ set APP_ENV=development
 set AUTH_MODE=dev
 set ADMIN_USERS=admin
 set KEKS=dev:%DEV_KEK%
+rem .env (DATABASE_URL, KEKS, ...) wins when present
+if exist .env for /f "usebackq eol=# tokens=1* delims==" %%a in (".env") do set "%%a=%%b"
 .venv\Scripts\python -m backend.manage migrate || exit /b 1
 start "" /b .venv\Scripts\uvicorn backend.main:app --port 8000 --no-access-log
 set LLM_AGENT_AUTH=dev
